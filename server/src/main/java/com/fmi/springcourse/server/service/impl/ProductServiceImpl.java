@@ -4,6 +4,9 @@ import com.fmi.springcourse.server.entity.Product;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.repository.ProductRepository;
 import com.fmi.springcourse.server.service.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -22,14 +25,37 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Product getProductBySlug(UUID slug) {
-		Product product = repository
-			.findBySlug(slug)
-			.orElseThrow(
-				() -> new EntityNotFoundException("Sorry, we couldn't find this product.")
-			);
+	public Product getProductBySlug(String slugString) {
+		try {
+			UUID slug = UUID.fromString(slugString);
+			
+			return repository
+				.findBySlug(slug)
+				.orElseThrow(
+					() -> new EntityNotFoundException("Sorry, we couldn't find this product.")
+				);
+		} catch (IllegalArgumentException e) {
+			throw new EntityNotFoundException("Sorry, we couldn't find this product.", e);
+		}
+	}
+	
+	@Override
+	public Page<Product> listProducts(Integer pageNumber, Integer size) {
+		if (pageNumber == null) {
+			throw new IllegalArgumentException("page number must not be null.");
+		}
+		if (size == null) {
+			throw new IllegalArgumentException("size must not be null.");
+		}
+		if (size <= 0) {
+			throw new IllegalArgumentException("size must be greater than 0.");
+		}
+		if (pageNumber < 0) {
+			throw new IllegalArgumentException("page number must be 0 or greater.");
+		}
 		
-		return product;
+		Pageable pageable = PageRequest.of(pageNumber, size);
+		return repository.findAll(pageable);
 	}
 	
 	@Override

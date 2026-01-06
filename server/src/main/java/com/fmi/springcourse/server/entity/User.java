@@ -1,0 +1,60 @@
+package com.fmi.springcourse.server.entity;
+
+import com.fmi.springcourse.server.valueobject.Role;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(
+	name = "users",
+	indexes = {
+		@Index(name = "email_index", columnList = "email")
+	}
+)
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
+	
+	@Column(unique = true, nullable = false)
+	private String email;
+	
+	@Column(nullable = false)
+	private String hashedPassword;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
+	protected User() {
+	}
+	
+	public User(String email, String hashedPassword, Role role) {
+		this.email = email;
+		this.hashedPassword = hashedPassword;
+		this.role = role;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
+	public String getHashedPassword() {
+		return hashedPassword;
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+}
