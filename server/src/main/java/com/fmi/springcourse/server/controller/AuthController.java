@@ -1,17 +1,12 @@
 package com.fmi.springcourse.server.controller;
 
 import com.fmi.springcourse.server.dto.Response;
-import com.fmi.springcourse.server.dto.UserDtoRequest;
-import com.fmi.springcourse.server.exception.InvalidEntityDataException;
-import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
 import com.fmi.springcourse.server.dto.LoginRequest;
 import com.fmi.springcourse.server.service.AuthService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

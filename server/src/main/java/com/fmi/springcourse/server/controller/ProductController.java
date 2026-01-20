@@ -35,8 +35,7 @@ public class ProductController {
 	@GetMapping("/list")
 	public Page<Product> listProducts(@RequestParam(name = "page-number") Integer pageNumber,
 	                                  @RequestParam Integer size) {
-		return service
-			.listProducts(pageNumber, size);
+		return service.listProducts(pageNumber, size);
 	}
 	
 	@PostMapping("/upload")
@@ -47,7 +46,9 @@ public class ProductController {
 		
 		Product uploadedProduct = service.uploadProduct(product);
 		
-		return ResponseEntity.status(HttpStatus.OK).body(uploadedProduct);
+		return ResponseEntity
+			.status(HttpStatus.OK)
+			.body(uploadedProduct);
 	}
 	
 	@GetMapping("/{slug}")
@@ -55,7 +56,6 @@ public class ProductController {
 		Product product = service.getProductBySlug(slug);
 		
 		return ResponseEntity.ok(product);
-		
 	}
 	
 	@DeleteMapping("/{id}")

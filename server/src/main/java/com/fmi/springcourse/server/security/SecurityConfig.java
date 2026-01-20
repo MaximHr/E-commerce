@@ -1,12 +1,12 @@
 package com.fmi.springcourse.server.security;
 
 import com.fmi.springcourse.server.security.jwt.JwtAuthenticationFilter;
-import com.fmi.springcourse.server.valueobject.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
@@ -20,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 	private static final List<String> ALLOWED_ORIGINS = List.of("http://localhost:5173");
 	private final JwtAuthenticationFilter jwtFilter;
@@ -32,7 +33,7 @@ public class SecurityConfig {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(ALLOWED_ORIGINS);
-		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		config.setAllowedMethods(List.of("GET", "PATCH", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
 		
@@ -54,16 +55,20 @@ public class SecurityConfig {
 		
 		return http.build();
 	}
-	
+
 	private void configureAuthorization(
 		AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
 	) {
 		auth
 			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
+			.requestMatchers(HttpMethod.GET, "/members/me").permitAll()
 			.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+			.requestMatchers(HttpMethod.GET, "/members/list").hasAnyRole("OWNER", "STORE_MANAGER")
 			.requestMatchers(HttpMethod.POST, "/members/create-user").hasRole("OWNER")
+			.requestMatchers(HttpMethod.DELETE, "/members/*").hasRole("OWNER")
+			.requestMatchers(HttpMethod.PATCH, "/members/**").hasRole("OWNER")
 			.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-			.anyRequest().authenticated();
+			.anyRequest().permitAll();
 	}
 	
 	@Bean

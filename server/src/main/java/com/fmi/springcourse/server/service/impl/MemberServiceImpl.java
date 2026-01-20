@@ -3,6 +3,7 @@ package com.fmi.springcourse.server.service.impl;
 import com.fmi.springcourse.server.dto.UserDtoRequest;
 import com.fmi.springcourse.server.dto.UserDtoResponse;
 import com.fmi.springcourse.server.entity.User;
+import com.fmi.springcourse.server.exception.EntityAlreadyExists;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.InvalidRoleException;
 import com.fmi.springcourse.server.repository.UserRepository;
@@ -12,6 +13,8 @@ import com.fmi.springcourse.server.valueobject.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -35,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		if (userService.exists(request.getEmail())) {
-			throw new EntityNotFoundException("User with this email already exists.");
+			throw new EntityAlreadyExists("User with this email already exists.");
 		}
 		
 		String hashedPassword = passwordEncoder.encode(request.getPassword());
@@ -47,12 +50,42 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public String kickMember(long userId) {
-		return "";
+	public void kickMember(long userId, User currentUser) {
+		if (currentUser.getId() == userId) {
+			throw new InvalidRoleException("You can not kick yourself.");
+		}
+		
+		userRepository.deleteById(userId);
 	}
 	
 	@Override
-	public Role changeRole(long userId) {
-		return null;
+	public void changeRole(long userId, Role newRole) {
+		System.out.println(newRole);
+		if (newRole == Role.OWNER) {
+			throw new InvalidRoleException("There can be only one owner");
+		}
+		
+		User user = userRepository
+			.findById(userId)
+			.orElseThrow(() -> new EntityNotFoundException("No user found."));
+		
+		if (user.getRole() == Role.OWNER) {
+			throw new InvalidRoleException("Owner can not be demoted.");
+		}
+		
+		user.setRole(newRole);
+		userRepository.save(user);
+	}
+	
+	@Override
+	public List<UserDtoResponse> listAllMembers() {
+		return userRepository.findAll()
+			.stream()
+			.map(user -> new UserDtoResponse(
+				user.getEmail(),
+				user.getRole().toString(),
+				user.getId()
+			))
+			.toList();
 	}
 }
