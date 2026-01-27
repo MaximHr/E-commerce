@@ -72,7 +72,6 @@ public class MemberController {
 	
 	@PatchMapping("/update-role/{id}")
 	public Response<String> updateRole(@PathVariable long id, @RequestBody String role) {
-		System.out.println(role);
 		memberService.changeRole(id, Role.valueOf(role));
 		
 		return new Response<>("Role updated successfully.");

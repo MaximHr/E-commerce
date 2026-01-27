@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.security;
+package com.fmi.springcourse.server.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

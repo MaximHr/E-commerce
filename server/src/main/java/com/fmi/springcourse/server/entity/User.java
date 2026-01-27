@@ -19,7 +19,6 @@ import jakarta.persistence.Table;
 	}
 )
 public class User {
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;

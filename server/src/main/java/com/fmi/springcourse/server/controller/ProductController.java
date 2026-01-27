@@ -43,7 +43,6 @@ public class ProductController {
 		if (errors.hasErrors()) {
 			CustomExceptionHandler.handleValidationErrors(errors);
 		}
-		
 		Product uploadedProduct = service.uploadProduct(product);
 		
 		return ResponseEntity
@@ -59,8 +58,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity<String> deleteProduct(
-		@PathVariable Long id) {
+	public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
 		service.deleteProduct(id);
 		
 		return ResponseEntity.ok("Product deleted successfully");

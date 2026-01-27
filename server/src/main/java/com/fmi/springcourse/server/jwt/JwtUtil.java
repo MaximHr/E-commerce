@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.security.jwt;
+package com.fmi.springcourse.server.jwt;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

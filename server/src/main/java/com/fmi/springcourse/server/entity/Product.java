@@ -3,11 +3,13 @@ package com.fmi.springcourse.server.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Min;
@@ -65,29 +67,37 @@ public class Product {
 	)
 	private String description;
 	
+	@DecimalMin("0")
+	@DecimalMax("100")
+	private BigDecimal discount;
+	
 	@Column(updatable = false, nullable = false, unique = true)
-	private UUID slug = UUID.randomUUID();
+	private final UUID slug = UUID.randomUUID();
 	
 	@CreatedDate
 	@Column(updatable = false)
 	private final Instant createdAt = Instant.now();
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	private List<String> images;
 	
 	protected Product() {
-	
 	}
 	
-	public Product(String title, BigDecimal price, Integer quantity, String description) {
+	public Product(String title, BigDecimal price, Integer quantity, String description, BigDecimal discount) {
 		this.title = title;
 		this.price = price;
 		this.quantity = quantity;
 		this.description = description;
+		this.discount = discount;
 	}
 	
 	public Long getId() {
 		return id;
+	}
+	
+	public BigDecimal getDiscount() {
+		return discount;
 	}
 	
 	public String getTitle() {
@@ -96,6 +106,10 @@ public class Product {
 	
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
 	}
 	
 	public BigDecimal getPrice() {

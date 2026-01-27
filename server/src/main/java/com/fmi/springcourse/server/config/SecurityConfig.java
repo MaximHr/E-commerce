@@ -1,6 +1,6 @@
-package com.fmi.springcourse.server.security;
+package com.fmi.springcourse.server.config;
 
-import com.fmi.springcourse.server.security.jwt.JwtAuthenticationFilter;
+import com.fmi.springcourse.server.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -62,6 +62,7 @@ public class SecurityConfig {
 		auth
 			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
 			.requestMatchers(HttpMethod.GET, "/members/me").permitAll()
+			.requestMatchers(HttpMethod.POST, "/images/upload").permitAll()
 			.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 			.requestMatchers(HttpMethod.GET, "/members/list").hasAnyRole("OWNER", "STORE_MANAGER")
 			.requestMatchers(HttpMethod.POST, "/members/create-user").hasRole("OWNER")

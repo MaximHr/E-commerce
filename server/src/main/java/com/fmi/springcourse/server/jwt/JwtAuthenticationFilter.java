@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.security.jwt;
+package com.fmi.springcourse.server.jwt;
 
 import com.fmi.springcourse.server.service.impl.UserServiceImpl;
 import jakarta.servlet.FilterChain;

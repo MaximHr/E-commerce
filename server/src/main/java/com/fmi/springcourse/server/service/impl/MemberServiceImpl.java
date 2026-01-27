@@ -60,7 +60,6 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public void changeRole(long userId, Role newRole) {
-		System.out.println(newRole);
 		if (newRole == Role.OWNER) {
 			throw new InvalidRoleException("There can be only one owner");
 		}
