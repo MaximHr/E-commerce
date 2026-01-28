@@ -45,6 +45,11 @@ public class ImageServiceImpl implements ImageService {
 		return imageRepository.upload(images);
 	}
 	
+	@Override
+	public void remove(String id) {
+		imageRepository.delete(id);
+	}
+	
 	private boolean isCorrectFileSize(MultipartFile file) {
 		return file.getSize() <= maxImageSize.toBytes();
 	}

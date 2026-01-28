@@ -1,6 +1,6 @@
 package com.fmi.springcourse.server.config;
 
-import com.fmi.springcourse.server.jwt.JwtAuthenticationFilter;
+import com.fmi.springcourse.server.util.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -61,15 +61,19 @@ public class SecurityConfig {
 	) {
 		auth
 			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
-			.requestMatchers(HttpMethod.GET, "/members/me").permitAll()
-			.requestMatchers(HttpMethod.POST, "/images/upload").permitAll()
+			.requestMatchers(HttpMethod.POST, "/products/upload").authenticated()
+			.requestMatchers(HttpMethod.DELETE, "/products/*").authenticated()
+			.requestMatchers(HttpMethod.PUT, "/products/*").authenticated()
+			.requestMatchers(HttpMethod.GET, "/members/me").authenticated()
+			.requestMatchers(HttpMethod.POST, "/images/upload").authenticated()
+			.requestMatchers(HttpMethod.DELETE, "/images/*").authenticated()
 			.requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
 			.requestMatchers(HttpMethod.GET, "/members/list").hasAnyRole("OWNER", "STORE_MANAGER")
 			.requestMatchers(HttpMethod.POST, "/members/create-user").hasRole("OWNER")
 			.requestMatchers(HttpMethod.DELETE, "/members/*").hasRole("OWNER")
 			.requestMatchers(HttpMethod.PATCH, "/members/**").hasRole("OWNER")
 			.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-			.anyRequest().permitAll();
+			.anyRequest().denyAll();
 	}
 	
 	@Bean

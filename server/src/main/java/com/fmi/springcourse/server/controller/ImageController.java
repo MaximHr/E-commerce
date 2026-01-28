@@ -1,10 +1,14 @@
 package com.fmi.springcourse.server.controller;
 
+import com.fmi.springcourse.server.dto.Response;
+import com.fmi.springcourse.server.exception.ImageDeletionException;
 import com.fmi.springcourse.server.exception.ImageUploadException;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
 import com.fmi.springcourse.server.service.ImageService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +33,23 @@ public class ImageController {
 		return imageService.upload(images);
 	}
 	
+	@DeleteMapping("/{id}")
+	public Response<String> removeHandler(@PathVariable String id) {
+		imageService.remove(id);
+		
+		return new Response<>("Image deleted successfully.");
+	}
+	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ImageUploadException.class)
 	public ExceptionResponse imageUploadExceptionHandler(ImageUploadException e) {
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST, List.of(e.getMessage()));
+	}
+	
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	@ExceptionHandler(ImageDeletionException.class)
+	public ExceptionResponse imageRemoveExceptionHandler(ImageDeletionException e) {
+		return new ExceptionResponse(HttpStatus.INTERNAL_SERVER_ERROR, List.of(e.getMessage()));
 	}
 	
 	@ResponseStatus(HttpStatus.CONTENT_TOO_LARGE)
