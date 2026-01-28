@@ -4,6 +4,9 @@ import com.fmi.springcourse.server.entity.Product;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.repository.ProductRepository;
 import com.fmi.springcourse.server.service.ProductService;
+
+import static com.fmi.springcourse.server.util.jwt.HTMLSanitizerUtil.sanitizeProductDetails;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product uploadProduct(Product product) {
+		sanitizeProductDetails(product);
+		
 		return repository.save(product);
 	}
 	
@@ -60,11 +65,22 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product updateProduct(Long id, Product newProduct) {
-		return repository
+		sanitizeProductDetails(newProduct);
+		
+		Product existingProduct = repository
 			.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(
-				"Could not update product because it was not found.")
+			.orElseThrow(
+				() -> new EntityNotFoundException("Could not update product because it was not found.")
 			);
+		
+		existingProduct.setTitle(newProduct.getTitle());
+		existingProduct.setDescription(newProduct.getDescription());
+		existingProduct.setDiscount(newProduct.getDiscount());
+		existingProduct.setImages(newProduct.getImages());
+		existingProduct.setQuantity(newProduct.getQuantity());
+		existingProduct.setPrice(newProduct.getPrice());
+		
+		return repository.save(existingProduct);
 	}
 	
 	@Override
