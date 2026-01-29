@@ -22,7 +22,7 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-	private static final List<String> ALLOWED_ORIGINS = List.of("http://localhost:5173");
+	private static final List<String> ALLOWED_ORIGINS = List.of("http://localhost:5173", "http://localhost:5174");
 	private final JwtAuthenticationFilter jwtFilter;
 	
 	public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
@@ -55,7 +55,7 @@ public class SecurityConfig {
 		
 		return http.build();
 	}
-
+	
 	private void configureAuthorization(
 		AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
 	) {

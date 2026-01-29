@@ -3,24 +3,19 @@ package com.fmi.springcourse.server.service.impl;
 import com.fmi.springcourse.server.exception.ImageUploadException;
 import com.fmi.springcourse.server.repository.ImageRepository;
 import com.fmi.springcourse.server.service.ImageService;
+import com.fmi.springcourse.server.util.FileTypeValidator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.unit.DataSize;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class ImageServiceImpl implements ImageService {
 	@Value("${spring.servlet.multipart.max-file-size}")
 	private DataSize maxImageSize;
 	
-	private static final Set<String> ALLOWED_TYPES = Set.of(
-		"image/jpeg",
-		"image/png",
-		"image/webp"
-	);
 	private final ImageRepository imageRepository;
 	
 	public ImageServiceImpl(ImageRepository imageRepository) {
@@ -37,7 +32,7 @@ public class ImageServiceImpl implements ImageService {
 					+ maxImageSize.toMegabytes()
 				);
 			}
-			if (!isCorrectType(img)) {
+			if (!FileTypeValidator.isAllowedImage(img)) {
 				throw new ImageUploadException("Invalid content type.");
 			}
 		}
@@ -52,11 +47,5 @@ public class ImageServiceImpl implements ImageService {
 	
 	private boolean isCorrectFileSize(MultipartFile file) {
 		return file.getSize() <= maxImageSize.toBytes();
-	}
-	
-	private boolean isCorrectType(MultipartFile file) {
-		String contentType = file.getContentType();
-		
-		return contentType != null && ALLOWED_TYPES.contains(contentType);
 	}
 }

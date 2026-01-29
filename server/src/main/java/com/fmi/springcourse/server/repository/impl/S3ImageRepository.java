@@ -72,6 +72,7 @@ public class S3ImageRepository implements ImageRepository {
 			
 			return uuid;
 		} catch (IOException | S3Exception e) {
+			System.out.println(e.getMessage());
 			throw new ImageUploadException("Could not upload image", e);
 		}
 	}

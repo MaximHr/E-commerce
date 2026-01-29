@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.util.jwt;
+package com.fmi.springcourse.server.util;
 
 import com.fmi.springcourse.server.entity.Product;
 import org.owasp.html.HtmlPolicyBuilder;

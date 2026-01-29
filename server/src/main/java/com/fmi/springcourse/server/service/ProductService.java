@@ -2,6 +2,7 @@ package com.fmi.springcourse.server.service;
 
 import com.fmi.springcourse.server.entity.Product;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
 	Product uploadProduct(Product product);
@@ -12,5 +13,5 @@ public interface ProductService {
 	
 	void deleteProduct(Long id);
 	
-	Page<Product> listProducts(Integer size, Integer limit);
+	Page<Product> listProducts(Pageable pageable);
 }

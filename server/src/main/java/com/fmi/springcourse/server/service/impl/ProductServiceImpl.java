@@ -5,18 +5,22 @@ import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.repository.ProductRepository;
 import com.fmi.springcourse.server.service.ProductService;
 
-import static com.fmi.springcourse.server.util.jwt.HTMLSanitizerUtil.sanitizeProductDetails;
+import static com.fmi.springcourse.server.util.HTMLSanitizerUtil.sanitizeProductDetails;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService {
 	private final ProductRepository repository;
+	private static final int MAX_PAGE_SIZE = 500;
+	private static final Set<String> ALLOWED_SORT_FIELDS = Set.of("price", "createdAt");
 	
 	public ProductServiceImpl(ProductRepository repository) {
 		this.repository = repository;
@@ -45,22 +49,25 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public Page<Product> listProducts(Integer pageNumber, Integer size) {
-		if (pageNumber == null) {
-			throw new IllegalArgumentException("page number must not be null.");
+	public Page<Product> listProducts(Pageable pageable) {
+		if (pageable.getPageSize() > MAX_PAGE_SIZE) {
+			throw new IllegalArgumentException("Max page size is " + MAX_PAGE_SIZE);
 		}
-		if (size == null) {
-			throw new IllegalArgumentException("size must not be null.");
-		}
-		if (size <= 0) {
-			throw new IllegalArgumentException("size must be greater than 0.");
-		}
-		if (pageNumber < 0) {
-			throw new IllegalArgumentException("page number must be 0 or greater.");
+		Sort sort = Sort.unsorted();
+		
+		for (Sort.Order order : pageable.getSort()) {
+			if (ALLOWED_SORT_FIELDS.contains(order.getProperty())) {
+				sort = sort.and(Sort.by(order));
+			}
 		}
 		
-		Pageable pageable = PageRequest.of(pageNumber, size);
-		return repository.findAll(pageable);
+		Pageable safePageable = PageRequest.of(
+			pageable.getPageNumber(),
+			pageable.getPageSize(),
+			sort
+		);
+		
+		return repository.findAll(safePageable);
 	}
 	
 	@Override

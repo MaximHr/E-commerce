@@ -31,6 +31,7 @@ public class R2BucketConfig {
 		);
 		var serviceConfig = S3Configuration.builder()
 			.pathStyleAccessEnabled(true)
+			.chunkedEncodingEnabled(false)
 			.build();
 		
 		return S3Client.builder()
