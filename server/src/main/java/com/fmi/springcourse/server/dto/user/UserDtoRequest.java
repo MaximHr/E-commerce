@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.user;
 
 import com.fmi.springcourse.server.valueobject.Role;
 import jakarta.validation.constraints.Email;

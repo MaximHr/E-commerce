@@ -1,10 +1,10 @@
 package com.fmi.springcourse.server.service.impl;
 
-import com.fmi.springcourse.server.dto.CollectionRequest;
-import com.fmi.springcourse.server.dto.CollectionResponse;
-import com.fmi.springcourse.server.dto.CollectionResponseWithCount;
-import com.fmi.springcourse.server.dto.CollectionResponseWithProducts;
-import com.fmi.springcourse.server.dto.ProductListDTO;
+import com.fmi.springcourse.server.dto.collection.CollectionRequest;
+import com.fmi.springcourse.server.dto.collection.CollectionResponse;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithCount;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithProducts;
+import com.fmi.springcourse.server.dto.product.ProductListDTO;
 import com.fmi.springcourse.server.entity.Collection;
 import com.fmi.springcourse.server.entity.Product;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
@@ -72,6 +72,18 @@ public class CollectionServiceImpl implements CollectionService {
 				dto.getTitle()
 			))
 			.toList();
+	}
+	
+	@Override
+	public CollectionResponse updateCollection(CollectionRequest request, long id) {
+		Collection collection = collectionRepository.findById(id)
+			.orElseThrow(
+				() -> new EntityNotFoundException("Sorry, we could not find the specified collection.")
+			);
+		collection.setImageUrl(request.getImageUrl());
+		collection.setTitle(request.getTitle());
+		
+		return new CollectionResponse(collectionRepository.save(collection));
 	}
 	
 	@Override

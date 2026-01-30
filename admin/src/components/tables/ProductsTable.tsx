@@ -40,16 +40,12 @@ const ProductsTable = ({
         </TableHeader>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.slug} className="cursor-pointer">
-              <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
-              >
-                {product.image? (
+            <TableRow key={product.slug}>
+              <TableCell>
+                {product.image ? (
                   <img
                     src={
-                      import.meta.env.VITE_R2_URL +
-                      "/image/" +
-                      product.image
+                      import.meta.env.VITE_R2_URL + "/image/" + product.image
                     }
                     alt={product.title}
                     className="w-12 h-12 object-contain rounded"
@@ -60,32 +56,25 @@ const ProductsTable = ({
                   </div>
                 )}
               </TableCell>
-              <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
-                className="max-w-[220px] whitespace-normal wrap-break-word"
-              >
+              <TableCell className="max-w-[220px] whitespace-normal wrap-break-word">
                 {product.title}
               </TableCell>
+              <TableCell>€{product.price.toFixed(2)}</TableCell>
               <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
-              >
-                €{product.price.toFixed(2)}
-              </TableCell>
-              <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
                 className={product.quantity == 0 ? "text-red-600" : ""}
               >
                 {product.quantity}
               </TableCell>
-              <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
-              >
+              <TableCell>
                 {product.discount > 0 ? <>{product.discount}%</> : "-"}
               </TableCell>
-              <TableCell
-                onClick={() => navigate(`/admin/products/${product.slug}`)}
-              >
-                <Button size="sm">Update</Button>
+              <TableCell>
+                <Button
+                  size="sm"
+                  onClick={() => navigate(`/admin/products/${product.slug}`)}
+                >
+                  Update
+                </Button>
               </TableCell>
               <TableCell>
                 <DeleteProductAlert

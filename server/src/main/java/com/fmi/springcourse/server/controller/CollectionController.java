@@ -1,9 +1,9 @@
 package com.fmi.springcourse.server.controller;
 
-import com.fmi.springcourse.server.dto.CollectionRequest;
-import com.fmi.springcourse.server.dto.CollectionResponse;
-import com.fmi.springcourse.server.dto.CollectionResponseWithCount;
-import com.fmi.springcourse.server.dto.CollectionResponseWithProducts;
+import com.fmi.springcourse.server.dto.collection.CollectionRequest;
+import com.fmi.springcourse.server.dto.collection.CollectionResponse;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithCount;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithProducts;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.InvalidEntityDataException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -74,6 +75,19 @@ public class CollectionController {
 	public ResponseEntity<List<CollectionResponse>> getCollectionsByProductId(
 		@PathVariable Long productId) {
 		return ResponseEntity.ok(service.getCollectionsByProductId(productId));
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<CollectionResponse> updateCollection(
+		@Valid @RequestBody CollectionRequest collection,
+		@PathVariable Long id,
+		Errors errors
+	) {
+		if (errors.hasErrors()) {
+			CustomExceptionHandler.handleValidationErrors(errors);
+		}
+		
+		return ResponseEntity.ok(service.updateCollection(collection, id));
 	}
 	
 	@DeleteMapping("/{id}")

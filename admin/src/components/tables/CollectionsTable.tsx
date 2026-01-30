@@ -6,11 +6,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "../ui/button";
-import { useNavigate } from "react-router";
 import type { CollectionWithCountT } from "@/types/collection";
 import DeleteCollectionAlert from "../alerts/DeleteCollectionAlert";
 import type { Dispatch, SetStateAction } from "react";
+import CollectionDialog from "../dialogs/CollectionDialog";
 
 interface CollectionTableProps {
   collections: CollectionWithCountT[];
@@ -21,8 +20,6 @@ const CollectionsTable = ({
   collections,
   setCollections,
 }: CollectionTableProps) => {
-  const navigate = useNavigate();
-
   return (
     <div className="rounded-md border w-fit max-w-full overflow-x-auto">
       <Table>
@@ -37,13 +34,8 @@ const CollectionsTable = ({
         </TableHeader>
         <TableBody>
           {collections.map((collection) => (
-            <TableRow key={collection.slug} className="cursor-pointer">
-              <TableCell
-                className="px-5"
-                onClick={() =>
-                  navigate(`/admin/collections/${collection.slug}`)
-                }
-              >
+            <TableRow key={collection.slug}>
+              <TableCell className="px-5">
                 {collection.imageUrl ? (
                   <img
                     src={
@@ -60,29 +52,12 @@ const CollectionsTable = ({
                   </div>
                 )}
               </TableCell>
-              <TableCell
-                onClick={() =>
-                  navigate(`/admin/collections/${collection.slug}`)
-                }
-                className="px-5 max-w-[220px] whitespace-normal wrap-break-word"
-              >
+              <TableCell className="px-5 max-w-[220px] whitespace-normal wrap-break-word">
                 {collection.title}
               </TableCell>
-              <TableCell
-                className="px-5"
-                onClick={() =>
-                  navigate(`/admin/collections/${collection.slug}`)
-                }
-              >
-                {collection.productsCount}
-              </TableCell>
-              <TableCell
-                className="px-5"
-                onClick={() =>
-                  navigate(`/admin/collections/${collection.slug}`)
-                }
-              >
-                <Button size="sm">Update</Button>
+              <TableCell className="px-5">{collection.productsCount}</TableCell>
+              <TableCell className="px-5">
+                <CollectionDialog setCollections={setCollections} collection={collection}/>
               </TableCell>
               <TableCell className="px-5">
                 <DeleteCollectionAlert

@@ -1,10 +1,10 @@
 package com.fmi.springcourse.server.service;
 
 import com.fmi.springcourse.server.dto.PageResponse;
-import com.fmi.springcourse.server.dto.ProductDetails;
-import com.fmi.springcourse.server.dto.ProductDetailsWithCollectionIds;
-import com.fmi.springcourse.server.dto.ProductListDTO;
-import com.fmi.springcourse.server.dto.ProductRequest;
+import com.fmi.springcourse.server.dto.product.ProductDetails;
+import com.fmi.springcourse.server.dto.product.ProductDetailsWithCollectionIds;
+import com.fmi.springcourse.server.dto.product.ProductListDTO;
+import com.fmi.springcourse.server.dto.product.ProductRequest;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {

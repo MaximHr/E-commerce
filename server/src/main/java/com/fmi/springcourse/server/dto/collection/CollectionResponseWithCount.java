@@ -1,4 +1,6 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.collection;
+
+import com.fmi.springcourse.server.entity.Collection;
 
 import java.util.UUID;
 

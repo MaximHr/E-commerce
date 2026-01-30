@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.product;
 
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;

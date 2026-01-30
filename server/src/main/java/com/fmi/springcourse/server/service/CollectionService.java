@@ -1,9 +1,9 @@
 package com.fmi.springcourse.server.service;
 
-import com.fmi.springcourse.server.dto.CollectionRequest;
-import com.fmi.springcourse.server.dto.CollectionResponse;
-import com.fmi.springcourse.server.dto.CollectionResponseWithCount;
-import com.fmi.springcourse.server.dto.CollectionResponseWithProducts;
+import com.fmi.springcourse.server.dto.collection.CollectionRequest;
+import com.fmi.springcourse.server.dto.collection.CollectionResponse;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithCount;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithProducts;
 
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +20,8 @@ public interface CollectionService {
 	CollectionResponseWithProducts removeProductFromCollection(UUID collectionSlug, long id);
 	
 	List<CollectionResponse> getCollectionsByProductId(Long productId);
+	
+	CollectionResponse updateCollection(CollectionRequest request, long id);
 	
 	void deleteCollection(Long id);
 }

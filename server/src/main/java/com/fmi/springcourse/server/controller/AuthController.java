@@ -2,7 +2,7 @@ package com.fmi.springcourse.server.controller;
 
 import com.fmi.springcourse.server.dto.Response;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
-import com.fmi.springcourse.server.dto.LoginRequest;
+import com.fmi.springcourse.server.dto.user.LoginRequest;
 import com.fmi.springcourse.server.service.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

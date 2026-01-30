@@ -1,10 +1,10 @@
 package com.fmi.springcourse.server.controller;
 
 import com.fmi.springcourse.server.dto.PageResponse;
-import com.fmi.springcourse.server.dto.ProductDetails;
-import com.fmi.springcourse.server.dto.ProductDetailsWithCollectionIds;
-import com.fmi.springcourse.server.dto.ProductListDTO;
-import com.fmi.springcourse.server.dto.ProductRequest;
+import com.fmi.springcourse.server.dto.product.ProductDetails;
+import com.fmi.springcourse.server.dto.product.ProductDetailsWithCollectionIds;
+import com.fmi.springcourse.server.dto.product.ProductListDTO;
+import com.fmi.springcourse.server.dto.product.ProductRequest;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
 import com.fmi.springcourse.server.exception.InvalidEntityDataException;

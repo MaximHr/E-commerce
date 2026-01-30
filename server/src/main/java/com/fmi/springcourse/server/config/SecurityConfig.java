@@ -62,6 +62,7 @@ public class SecurityConfig {
 		auth
 			.requestMatchers(HttpMethod.GET, "/collections/**").permitAll()
 			.requestMatchers(HttpMethod.POST, "/collections/**").authenticated()
+			.requestMatchers(HttpMethod.PUT, "/collections/*").authenticated()
 			.requestMatchers(HttpMethod.DELETE, "/collections/**").authenticated()
 			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
 			.requestMatchers(HttpMethod.GET, "/products/withCollectionIds/*").authenticated()

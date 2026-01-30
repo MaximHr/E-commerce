@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { Button } from "../ui/button";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { handleError } from "@/api/errorHandler";
 import { deleteCollection } from "@/api/collections";
 import type { CollectionWithCountT } from "@/types/collection";

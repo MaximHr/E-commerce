@@ -1,7 +1,7 @@
 import type { ProductTListResponse } from "./product";
 
 export type CollectionWithCountT = {
-	  id: number;
+  id: number;
   title: string;
   slug: string;
   imageUrl: string;

@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.product;
 
 import com.fmi.springcourse.server.entity.Product;
 

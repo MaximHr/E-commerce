@@ -13,11 +13,11 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import ImageUploadButton from "../ImageUploadButton";
-import { Trash, Edit } from "lucide-react";
+import { Trash } from "lucide-react";
 import type { CollectionWithCountT } from "@/types/collection";
 import { deleteImage } from "@/api/images";
 import { handleError } from "@/api/errorHandler";
-import { createCollection } from "@/api/collections";
+import { createCollection, updateCollection } from "@/api/collections";
 
 interface CollectionDialogProps {
   setCollections: React.Dispatch<React.SetStateAction<CollectionWithCountT[]>>;
@@ -36,8 +36,8 @@ export default function CollectionDialog({
 
   const removeImage = async () => {
     try {
-      await deleteImage(imageUrl);
       setImagesUrl("");
+      await deleteImage(imageUrl);
     } catch (err) {
       if (err instanceof Error) {
         handleError(err.message);
@@ -47,7 +47,7 @@ export default function CollectionDialog({
     }
   };
 
-  const submitHandler = async() => {
+  const submitHandler = async () => {
     try {
       if (name.trim() == "") {
         throw new Error("Name field is required.");
@@ -55,17 +55,25 @@ export default function CollectionDialog({
         throw new Error("Please upload an image.");
       }
       if (collection) {
-        const updatedCategory = {
+        const updatedCollection: CollectionWithCountT = {
           ...collection,
-          name,
+          title: name,
           imageUrl,
         };
-        //TODO: update collection
+				const res = await updateCollection(updatedCollection);
+
+        setCollections((prevCollections) =>
+          prevCollections.map((collection) =>
+            collection.id === res.id
+              ? res
+              : collection,
+          ),
+        );
       } else {
         const res = await createCollection(name, imageUrl);
-				setName("");
-				setImagesUrl("");
-				setCollections(prev => [res, ...prev]);
+        setName("");
+        setImagesUrl("");
+        setCollections((prev) => [res, ...prev]);
       }
       setIsOpen(false);
     } catch (err) {
@@ -82,9 +90,7 @@ export default function CollectionDialog({
       <form>
         <DialogTrigger asChild>
           {collection ? (
-            <Button variant="outline" className="shadow-none" size="icon">
-              <Edit className="h-4 w-4" />
-            </Button>
+            <Button size="sm">Update</Button>
           ) : (
             <Button>Add collection</Button>
           )}
@@ -113,14 +119,14 @@ export default function CollectionDialog({
                   multiple={false}
                 />
               ) : (
-                <div className="h-24 overflow-hidden flex items-start">
+                <div className="border w-24 p-2 h-24 overflow-hidden flex items-start">
                   <img
                     style={{ height: "100%" }}
                     src={import.meta.env.VITE_R2_URL + "/image/" + imageUrl}
                     alt="collection image"
                   />
                   <div
-                    className="rounded cursor-pointer p-1 hover:text-destructive relative -translate-x-6.5 translate-y-1 bg-white/75 transition-colors duration-75"
+                    className="rounded cursor-pointer hover:text-destructive relative -translate-x-3 bg-white/75 transition-colors duration-75"
                     onClick={removeImage}
                   >
                     <Trash size={14} />

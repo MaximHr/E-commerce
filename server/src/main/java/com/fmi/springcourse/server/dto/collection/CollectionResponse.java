@@ -1,4 +1,6 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.collection;
+
+import com.fmi.springcourse.server.entity.Collection;
 
 import java.util.UUID;
 
@@ -13,6 +15,10 @@ public class CollectionResponse {
 		this.slug = slug;
 		this.imageUrl = imageUrl;
 		this.title = title;
+	}
+	
+	public CollectionResponse(Collection collection) {
+		this(collection.getId(), collection.getSlug(), collection.getImageUrl(), collection.getTitle());
 	}
 	
 	public Long getId() {

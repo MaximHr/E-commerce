@@ -1,6 +1,6 @@
 package com.fmi.springcourse.server.repository;
 
-import com.fmi.springcourse.server.dto.CollectionResponseWithCount;
+import com.fmi.springcourse.server.dto.collection.CollectionResponseWithCount;
 import com.fmi.springcourse.server.entity.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

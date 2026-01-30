@@ -1,7 +1,7 @@
 package com.fmi.springcourse.server.service;
 
-import com.fmi.springcourse.server.dto.UserDtoRequest;
-import com.fmi.springcourse.server.dto.UserDtoResponse;
+import com.fmi.springcourse.server.dto.user.UserDtoRequest;
+import com.fmi.springcourse.server.dto.user.UserDtoResponse;
 import com.fmi.springcourse.server.entity.User;
 import com.fmi.springcourse.server.valueobject.Role;
 
