@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "special-font";
+  src: url("../assets/font.woff2");
+}
+html, body {
+	overflow-x: hidden;
+}
+
+.special-font {
+  font-family: "special-font";
+}
+
+::selection {
+  background-color: var(--primary);
+}
+
+.grab {
+  cursor: grab !important;
+}
+
+.text-muted {
+  color: #29002990;
+}
+
+button {
+  cursor: pointer;
+}
+
+.rsw-editor {
+  max-width: 512px;
+  --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
+  box-shadow:
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow),
+    var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+}
+
+.rsw-ce {
+  z-index: 4;
+  min-height: 125px;
+  transition: all 0.2s ease;
+  border: 2px solid transparent !important;
+  outline: none !important;
+}
+
+.rsw-ce:focus {
+  border: 2px solid var(--primary) !important;
+}
+
+.rsw-toolbar {
+  background-color: var(--color-sidebar) !important;
+}
+
+.rsw-btn {
+  box-sizing: content-box;
+  display: flex;
+  justify-content: center;
+  padding: 0 2px !important;
+  align-items: center;
+}
+
+.rsw-ce ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+.rsw-ce ol {
+  list-style-type: decimal;
+  list-style-position: inside;
+}

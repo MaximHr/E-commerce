@@ -1,0 +1,26 @@
+import { toast } from "react-toastify";
+
+export function handleError(err: string | string[]): void {
+  if (typeof err == "string") {
+    toast.error(err);
+  } else {
+    err.forEach((message) => {
+      toast.error(message);
+    });
+  }
+}
+
+export function checkIsForbidden(res: Response) {
+  if (res.status === 403) {
+    throw new Error("Forbidden request.");
+  }
+}
+
+export function checkIsOk(res: Response, data) {
+  if (res.status < 200 || res.status >= 300) {
+    if (data?.error) {
+      throw new Error(data.error);
+    }
+    throw new Error(data.messages);
+  }
+}
