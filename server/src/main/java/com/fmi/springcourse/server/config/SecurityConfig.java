@@ -60,7 +60,11 @@ public class SecurityConfig {
 		AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry auth
 	) {
 		auth
+			.requestMatchers(HttpMethod.GET, "/collections/**").permitAll()
+			.requestMatchers(HttpMethod.POST, "/collections/**").authenticated()
+			.requestMatchers(HttpMethod.DELETE, "/collections/**").authenticated()
 			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
+			.requestMatchers(HttpMethod.GET, "/products/withCollectionIds/*").authenticated()
 			.requestMatchers(HttpMethod.POST, "/products/upload").authenticated()
 			.requestMatchers(HttpMethod.DELETE, "/products/*").authenticated()
 			.requestMatchers(HttpMethod.PUT, "/products/*").authenticated()

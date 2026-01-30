@@ -1,17 +1,22 @@
 package com.fmi.springcourse.server.service;
 
-import com.fmi.springcourse.server.entity.Product;
-import org.springframework.data.domain.Page;
+import com.fmi.springcourse.server.dto.PageResponse;
+import com.fmi.springcourse.server.dto.ProductDetails;
+import com.fmi.springcourse.server.dto.ProductDetailsWithCollectionIds;
+import com.fmi.springcourse.server.dto.ProductListDTO;
+import com.fmi.springcourse.server.dto.ProductRequest;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductService {
-	Product uploadProduct(Product product);
+	ProductDetails uploadProduct(ProductRequest product);
 	
-	Product getProductBySlug(String slug);
+	ProductDetails getProductDetailsBySlug(String slugString);
 	
-	Product updateProduct(Long id, Product product);
+	ProductDetailsWithCollectionIds getProductBySlugWithCollectionIds(String slugString);
+	
+	ProductDetails updateProduct(Long id, ProductRequest newProduct);
 	
 	void deleteProduct(Long id);
 	
-	Page<Product> listProducts(Pageable pageable);
+	PageResponse<ProductListDTO> listProducts(Pageable pageable);
 }

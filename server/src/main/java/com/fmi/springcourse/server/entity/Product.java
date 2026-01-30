@@ -8,19 +8,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -30,45 +28,21 @@ import java.util.UUID;
 	}
 )
 public class Product {
-	public static final int MAX_TITLE_LENGTH = 100;
 	public static final int MAX_DESCRIPTION_LENGTH = 10_000;
-	public static final int MIN_DESCRIPTION_LENGTH = 10;
-	public static final int MAX_PRICE_DIGITS = 10;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
-	@NotBlank(message = "Title cannot be blank")
-	@Size(max = MAX_TITLE_LENGTH, message = "Title must be at most {max} characters long")
 	private String title;
 	
-	@NotNull(message = "Price cannot be null")
-	@DecimalMin(
-		value = "0.0",
-		inclusive = false,
-		message = "Price must be greater than 0"
-	)
-	@Digits(
-		integer = MAX_PRICE_DIGITS,
-		fraction = 2,
-		message = "Price must have up to {integer} digits and 2 decimals"
-	)
 	private BigDecimal price;
 	
-	@NotNull(message = "Quantity cannot be null")
-	@Min(value = 0, message = "Quantity cannot be negative")
 	private Integer quantity;
 	
-	@Size(
-		min = MIN_DESCRIPTION_LENGTH,
-		max = MAX_DESCRIPTION_LENGTH,
-		message = "Description must be between {min} and {max} characters long"
-	)
+	@Column(length = MAX_DESCRIPTION_LENGTH)
 	private String description;
 	
-	@DecimalMin("0")
-	@DecimalMax("100")
 	private BigDecimal discount;
 	
 	@Column(updatable = false, nullable = false, unique = true)
@@ -78,18 +52,29 @@ public class Product {
 	@Column(updatable = false)
 	private final Instant createdAt = Instant.now();
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection(fetch = FetchType.LAZY)
+	@NotNull
 	private List<String> images;
+	
+	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
+	private Set<Collection> collections;
 	
 	protected Product() {
 	}
 	
-	public Product(String title, BigDecimal price, Integer quantity, String description, BigDecimal discount) {
+	public Product(String title,
+	               BigDecimal price,
+	               Integer quantity,
+	               String description,
+	               BigDecimal discount,
+	               List<String> images
+	) {
 		this.title = title;
 		this.price = price;
 		this.quantity = quantity;
 		this.description = description;
 		this.discount = discount;
+		this.images = images;
 	}
 	
 	public Long getId() {
@@ -144,6 +129,14 @@ public class Product {
 		return createdAt;
 	}
 	
+	public Set<Collection> getCollections() {
+		return Collections.unmodifiableSet(collections);
+	}
+	
+	public void setCollections(Set<Collection> collections) {
+		this.collections = collections;
+	}
+	
 	public List<String> getImages() {
 		return images;
 	}
@@ -151,4 +144,5 @@ public class Product {
 	public void setImages(List<String> images) {
 		this.images = images;
 	}
+	
 }

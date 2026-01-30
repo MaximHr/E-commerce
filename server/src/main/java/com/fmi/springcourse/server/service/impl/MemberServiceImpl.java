@@ -10,9 +10,9 @@ import com.fmi.springcourse.server.repository.UserRepository;
 import com.fmi.springcourse.server.service.MemberService;
 import com.fmi.springcourse.server.service.UserService;
 import com.fmi.springcourse.server.valueobject.Role;
-import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

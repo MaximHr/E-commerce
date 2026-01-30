@@ -1,13 +1,16 @@
 package com.fmi.springcourse.server.controller;
 
-import com.fmi.springcourse.server.entity.Product;
+import com.fmi.springcourse.server.dto.PageResponse;
+import com.fmi.springcourse.server.dto.ProductDetails;
+import com.fmi.springcourse.server.dto.ProductDetailsWithCollectionIds;
+import com.fmi.springcourse.server.dto.ProductListDTO;
+import com.fmi.springcourse.server.dto.ProductRequest;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
 import com.fmi.springcourse.server.exception.InvalidEntityDataException;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
 import com.fmi.springcourse.server.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,16 +38,17 @@ public class ProductController {
 	}
 	
 	@GetMapping("/list")
-	public Page<Product> listProducts(Pageable pageable) {
+	public PageResponse<ProductListDTO> listProducts(Pageable pageable) {
 		return service.listProducts(pageable);
 	}
 	
 	@PostMapping("/upload")
-	public ResponseEntity<Product> uploadProduct(@Valid @RequestBody Product product, Errors errors) {
+	public ResponseEntity<ProductDetails> createProduct(@Valid @RequestBody ProductRequest product,
+	                                                    Errors errors) {
 		if (errors.hasErrors()) {
 			CustomExceptionHandler.handleValidationErrors(errors);
 		}
-		Product uploadedProduct = service.uploadProduct(product);
+		ProductDetails uploadedProduct = service.uploadProduct(product);
 		
 		return ResponseEntity
 			.status(HttpStatus.OK)
@@ -52,8 +56,15 @@ public class ProductController {
 	}
 	
 	@GetMapping("/{slug}")
-	public ResponseEntity<Product> getProductBySlug(@PathVariable String slug) {
-		Product product = service.getProductBySlug(slug);
+	public ResponseEntity<ProductDetails> getProductBySlug(@PathVariable String slug) {
+		ProductDetails product = service.getProductDetailsBySlug(slug);
+		
+		return ResponseEntity.ok(product);
+	}
+	
+	@GetMapping("/withCollectionIds/{slug}")
+	public ResponseEntity<ProductDetailsWithCollectionIds> getProductBySlugWithCollectionIds(@PathVariable String slug) {
+		ProductDetailsWithCollectionIds product = service.getProductBySlugWithCollectionIds(slug);
 		
 		return ResponseEntity.ok(product);
 	}
@@ -66,16 +77,16 @@ public class ProductController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Product> updateProduct(
+	public ResponseEntity<ProductDetails> updateProduct(
 		@PathVariable Long id,
-		@Valid @RequestBody Product product,
+		@Valid @RequestBody ProductRequest product,
 		Errors errors
 	) {
 		if (errors.hasErrors()) {
 			CustomExceptionHandler.handleValidationErrors(errors);
 		}
 		
-		Product updatedProduct = service.updateProduct(id, product);
+		ProductDetails updatedProduct = service.updateProduct(id, product);
 		
 		return ResponseEntity.ok(updatedProduct);
 	}
@@ -98,4 +109,5 @@ public class ProductController {
 	public ExceptionResponse illegalArgumentHandler(IllegalArgumentException e) {
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST, List.of(e.getMessage()));
 	}
+	
 }
