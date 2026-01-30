@@ -1,0 +1,285 @@
+@media  only screen and (min-width: 1400px) {
+  .navbar, .view-all, .add-to-cart {
+    font-size: 1.1rem;
+  }
+  .logo p {
+    font-size: 2rem;
+  }
+  .button {
+    font-size: 1.35rem;
+  }
+  .product-title {
+    font-size: 1.35rem;
+  }
+  .product-price {
+    font-size: 1.5rem;
+  }
+}
+@media  only screen and (min-width: 1550px) {
+  .secondary-banner, .about-title, .isle-title, .details-title {
+    font-size: 2.5rem;
+  }
+  .searchbar {
+    height: 55px;
+  }
+  .search-input {
+    height: 55px;
+    font-size: 1.2rem;
+  }
+  .navbar, .view-all, .add-to-cart, .about-info, .cell-text, .cart-item-title, .cart-item-price {
+    font-size: 1.25rem;
+  }
+  .cart-item-img {
+    height: 80px;
+    width: 70px;
+  }
+  .logo p {
+    font-size: 2.35rem;
+  }
+  .button, .cell-title,  .product-title  {
+    font-size: 1.5rem;
+  }
+  select {
+    font-size: 1.25rem;
+  }
+  .product-price, .cart-title, .details-price {
+    font-size: 1.75rem;
+  }
+  .footer .link {
+    font-size: 1.1rem;
+  }
+  .footer h2, .details-description {
+    font-size: 1.25rem;
+  }
+  .purchased-number {
+    width: 22px;
+    height: 22px;
+    top: -60%;
+    right: -60%;
+    font-size: 0.9rem;
+  }
+}
+
+@media  only screen and (min-width: 1800px) {
+ .isle-list {
+  grid-template-columns: repeat(5, 1fr);
+ }
+}
+
+
+@media  only screen and (max-width: 1025px) {
+  .isle-list {
+   grid-template-columns: repeat(3, 1fr);
+  }
+  .container {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  .navbar {
+    padding: 2rem 2rem 2rem 1.5rem;
+  }
+  .secondary-banner-img {
+    height: 55%;
+  }
+  .secondary-banner p {
+    font-size: 1.66rem;
+  }
+  .logo {
+    margin-right: 3.5rem;
+  }
+  .search-input {
+    display: none;
+  }
+  .magnifying-glass {
+    padding: 0 5px;
+  }
+  .searchbar {
+    height: auto;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border: none;
+    margin-right: 0;
+    width: 100%;
+    background-color: transparent;
+  }
+  .secondary-banner img {
+    position: relative;
+    top: 0;
+    right: 0;
+    transform: none !important;
+    width: 70%;
+    max-width: 220px !important;
+    object-fit: contain;
+  }
+  .secondary-banner .button {
+    bottom: 0;
+    position: relative;
+  }
+  .secondary-banner {
+    text-align: center;
+    align-items: center;
+    gap: 2rem;
+    height: auto;
+  }
+  .secondary-banner p {
+    max-width: 100%;
+  }
+}
+
+
+@media  only screen and (max-width: 900px) {
+  .details-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .details-page .content {
+    align-self: center;
+    flex-direction: column-reverse;
+    width: 600px;
+  }
+}
+@media  only screen and (max-width: 769px) {
+	.details-page .content {
+		width: calc(100vw - 3rem);
+	}
+  .about-table {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    gap: 3rem;
+    max-width: 300px;
+  }
+  .footer-rights {
+    justify-self: center;
+    flex-direction: row;
+  }
+  .footer-column {
+    max-width: 100%;
+    text-align: center;
+    align-items: center;
+  }
+  .footer .logo {
+    margin-right: 1rem;
+  }
+  .footer {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .isle-list {
+   grid-template-columns: repeat(2, 1fr);
+  }
+  .together {
+    gap: 0.75rem;
+  }
+  .logo {
+    margin-right: 2.5rem;
+  }
+  .nav-item {
+    font-size: 0.85rem;
+  }
+}
+
+@media  only screen and (max-width: 630px) {
+  .together {
+    display: none;
+  }
+  .main-banner {
+    height: 275px;
+  }
+  .logo {
+    margin-right: 0rem;
+  }
+  .hamburger {
+    display: flex;
+  }
+}
+
+@media  only screen and (max-width: 500px) {
+	.not-found .about-info {
+		font-size: 1.1rem;
+	}
+	.not-found h1{
+		font-size: 2.5rem;
+	}
+	.svg-curve {
+		opacity: 0.8;
+	}
+	.svg-curve-right {
+		display: none;
+	}
+	.about-title {
+		font-size: 1.75rem;
+	}
+	.details-img-container {
+		height: 70vh;
+		max-height: 500px;
+	}
+	.details-images-list {
+		justify-content: center;
+	}
+  .cart-bottom {
+    gap: 2rem;
+  }
+  .footer-rights {
+    flex-direction: column;
+  }
+  .main-banner {
+    height: auto;
+    border: 1px solid #ccc;
+  }
+  .main-banner img {
+    transform: scale(1.1);
+  }
+  .arrow-left, .arrow-right {
+    display: none;
+  } 
+  .isle-list {
+    justify-items: center;
+    grid-template-columns: 1fr;
+  }
+  .product {
+    width: 100%;
+    max-width: 325px;
+  }
+  .flex-end {
+    gap: 1.25rem;
+  }
+  .about {
+    padding: 3rem 2rem;
+  }
+  .isle-title {
+    text-align: center;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media  only screen and (max-width: 390px) {
+  .details-title {
+    font-size: 1.75rem;
+  }
+  .details .button, .about .button {
+    font-size: 1rem;
+  }
+  .details-description {
+    font-size: 0.9rem;
+  }
+  .details-price {
+    font-size: 1.35rem;
+  }
+  .details-img {
+    padding: 3.5rem;
+  }
+  .cart-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 1.75rem 0;
+  }
+}
+
+@media  only screen and (max-width: 375px) {
+}
