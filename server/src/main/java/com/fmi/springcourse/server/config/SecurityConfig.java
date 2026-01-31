@@ -1,6 +1,7 @@
 package com.fmi.springcourse.server.config;
 
 import com.fmi.springcourse.server.util.jwt.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,7 +23,12 @@ import java.util.List;
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-	private static final List<String> ALLOWED_ORIGINS = List.of("http://localhost:5173", "http://localhost:5174");
+	@Value("${admin.url}")
+	private String adminUrl;
+	
+	@Value("${store.url}")
+	private String storeUrl;
+	
 	private final JwtAuthenticationFilter jwtFilter;
 	
 	public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
@@ -32,7 +38,7 @@ public class SecurityConfig {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(ALLOWED_ORIGINS);
+		config.setAllowedOrigins(List.of(adminUrl, storeUrl));
 		config.setAllowedMethods(List.of("GET", "PATCH", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowCredentials(true);
@@ -77,6 +83,7 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.POST, "/members/create-user").hasRole("OWNER")
 			.requestMatchers(HttpMethod.DELETE, "/members/*").hasRole("OWNER")
 			.requestMatchers(HttpMethod.PATCH, "/members/**").hasRole("OWNER")
+			.requestMatchers(HttpMethod.POST, "/payments/create-link").permitAll()
 			.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.anyRequest().denyAll();
 	}

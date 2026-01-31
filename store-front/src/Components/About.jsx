@@ -24,7 +24,6 @@ const About = () => {
         let pos = aboutRef.current.getBoundingClientRect().top;
         if (lastPos < pos) {
             setLastPos(pos);
-            console.log("update pos " + pos);
         }
         // if(lastPos < pos) {
         // 	console.log('potential bug');
@@ -36,10 +35,10 @@ const About = () => {
 
     return (
         <div className='about container' id='about' ref={aboutRef}>
-            <h1 className='about-title'>About Doroty</h1>
+            <h1 className='about-title'>About Dorothy</h1>
             <p className="about-info">
-                Welcome to Doroty Plushies, where cuddles and creativity come to life! Founded with a passion for
-                bringing joy and comfort to children and adults alike, Doroty Plushies specializes in creating
+                Welcome to Dorothy Plushies, where cuddles and creativity come to life! Founded with a passion for
+                bringing joy and comfort to children and adults alike, Dorothy Plushies specializes in creating
                 high-quality, uniquely designed plush toys that spark the imagination and warm the heart.
             </p>
             <div className="about-table">
@@ -53,7 +52,7 @@ const About = () => {
                     <AiFillCustomerService size={25}/>
                     <h2 className="cell-title">Customer Service</h2>
                     <p className='cell-text'>We are available from monday to friday to answer your questions. Just send
-                        us an email at <span className='bold'>doroty@shop.com</span></p>
+                        us an email at <span className='bold'>dorothy@shop.com</span></p>
                 </div>
                 <div className="cell">
                     <IoIosLock size={26} style={{marginBottom: '4px'}}/>

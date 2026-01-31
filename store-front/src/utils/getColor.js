@@ -1,5 +1,4 @@
 export default function getColor(secondaryColor, i) {
-	console.log(secondaryColor, i)
 	let {hue, saturation, lightness} = convertColor(secondaryColor);
 	// if((i % 4 ) == 0 || (i % 4) == 3) {
 	// 	hue += 180;
@@ -30,7 +29,7 @@ function convertColor(hex) {
 	let h, s, l = (max + min) / 2;
 	// Calculate Hue
 	if (max === min) {
-			h = s = 0; // Achromatic (gray)
+			h = s = 0;
 	} else {
 			let d = max - min;
 			s = l > 0.5 ? d / (2 - max - min) : d / (max + min);

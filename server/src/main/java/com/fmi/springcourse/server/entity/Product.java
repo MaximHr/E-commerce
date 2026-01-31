@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -144,4 +145,14 @@ public class Product {
 		this.images = images;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Product product)) return false;
+		return Objects.equals(id, product.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
+	}
 }

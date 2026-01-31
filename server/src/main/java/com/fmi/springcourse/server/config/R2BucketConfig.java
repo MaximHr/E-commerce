@@ -17,10 +17,10 @@ public class R2BucketConfig {
 	private String accessKey;
 	
 	@Value("${r2.secret-key}")
-	private String secretKey = System.getenv("R2_SECRET_ACCESS_KEY");
+	private String secretKey;
 	
 	@Value("${r2.endpoint}")
-	private String endpoint = System.getenv("R2_ENDPOINT");
+	private String endpoint;
 	
 	private static final Region REGION = Region.of("auto");
 	

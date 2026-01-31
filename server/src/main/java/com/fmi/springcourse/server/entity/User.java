@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 
+import java.util.Objects;
+
 @Entity
 @Table(
 	name = "users",
@@ -68,5 +70,16 @@ public class User {
 			", email='" + email + '\'' +
 			", id=" + id +
 			'}';
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof User user)) return false;
+		return Objects.equals(id, user.id);
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
 	}
 }

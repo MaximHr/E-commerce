@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import CartItem from "./CartItem";
+import { createCheckout } from "../utils/getData";
+import { toast } from "react-toastify";
 
 const Cart = ({ setCartToggle, isCartToggled, products, setProducts }) => {
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let ammount = 0;
@@ -18,6 +21,23 @@ const Cart = ({ setCartToggle, isCartToggled, products, setProducts }) => {
       setCartToggle(false);
     }
   };
+
+  const checkOutHandler = async () => {
+    setLoading(true);
+    try {
+      const productDetails = products.map((product) => ({
+        productId: product.id,
+        quantity: product.clientQuantity,
+      }));
+
+      const res = await createCheckout(productDetails);
+      window.location.href = res.message;
+    } catch (err) {
+      toast.error(err.message);
+    }
+    setLoading(false);
+  };
+
   return (
     <div
       className={isCartToggled ? "cart-overlay" : ""}
@@ -56,7 +76,9 @@ const Cart = ({ setCartToggle, isCartToggled, products, setProducts }) => {
             <h2 className="cart-title">
               Total: € <span className="cart-total">{total}</span>
             </h2>
-            <button className="button">Checkout</button>
+            <button disabled={loading} onClick={checkOutHandler} className="button">
+              {loading ? "Loading..." : "Checkout"}
+            </button>
           </div>
         ) : (
           <></>

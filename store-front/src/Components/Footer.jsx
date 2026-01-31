@@ -15,7 +15,7 @@ const Footer = () => {
       </div>
       <div className="footer-column">
         <h2>Contact Us</h2>
-        <a className='link'>email: doroty@shop.com</a>
+        <a className='link'>email: dorothy@shop.com</a>
         <a className='link'>phone: +44 (0) 117 1257853</a>
         <a className='link'>address: Calle de Arganzuela 15, Madrid, Spain</a>
       </div>

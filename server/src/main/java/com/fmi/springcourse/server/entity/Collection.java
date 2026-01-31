@@ -14,6 +14,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -85,4 +86,14 @@ public class Collection {
 		this.title = title;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Collection that)) return false;
+		return id == that.id;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(id);
+	}
 }
