@@ -1,4 +1,4 @@
-package com.fmi.springcourse.server.dto;
+package com.fmi.springcourse.server.dto.order;
 
 import java.util.Objects;
 

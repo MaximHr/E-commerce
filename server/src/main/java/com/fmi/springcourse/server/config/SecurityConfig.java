@@ -84,6 +84,11 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.DELETE, "/members/*").hasRole("OWNER")
 			.requestMatchers(HttpMethod.PATCH, "/members/**").hasRole("OWNER")
 			.requestMatchers(HttpMethod.POST, "/payments/create-link").permitAll()
+			.requestMatchers(HttpMethod.POST, "/payments/webhook").permitAll()
+			.requestMatchers(HttpMethod.GET, "/orders").hasAnyRole("OWNER", "STORE_MANAGER")
+			.requestMatchers(HttpMethod.GET, "/orders/items-sold").hasAnyRole("OWNER", "STORE_MANAGER")
+			.requestMatchers(HttpMethod.GET, "/orders/revenue").hasAnyRole("OWNER", "STORE_MANAGER")
+			.requestMatchers(HttpMethod.PATCH, "/orders/status/*").hasAnyRole("OWNER", "STORE_MANAGER")
 			.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 			.anyRequest().denyAll();
 	}

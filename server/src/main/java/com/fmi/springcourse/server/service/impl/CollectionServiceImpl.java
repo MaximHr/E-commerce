@@ -4,7 +4,7 @@ import com.fmi.springcourse.server.dto.collection.CollectionRequest;
 import com.fmi.springcourse.server.dto.collection.CollectionResponse;
 import com.fmi.springcourse.server.dto.collection.CollectionResponseWithCount;
 import com.fmi.springcourse.server.dto.collection.CollectionResponseWithProducts;
-import com.fmi.springcourse.server.dto.product.ProductListDTO;
+import com.fmi.springcourse.server.dto.product.ProductListDto;
 import com.fmi.springcourse.server.entity.Collection;
 import com.fmi.springcourse.server.entity.Product;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
@@ -142,8 +142,8 @@ public class CollectionServiceImpl implements CollectionService {
 	}
 	
 	private CollectionResponseWithProducts toResponseWithProducts(Collection collection) {
-		Set<ProductListDTO> products = collection.getProducts().stream()
-			.map(ProductListDTO::new)
+		Set<ProductListDto> products = collection.getProducts().stream()
+			.map(ProductListDto::new)
 			.collect(Collectors.toSet());
 		
 		return new CollectionResponseWithProducts(

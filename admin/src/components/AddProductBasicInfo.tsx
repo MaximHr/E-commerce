@@ -83,7 +83,6 @@ const AddProductBasicInfo = ({
 						id="quantity" 
 						type="number" 
 						min={0}
-						placeholder="Leave empty to ignore quantity"
 						value={quantity}
 						onChange={(e: React.ChangeEvent<HTMLInputElement >) => setQuantity(Number(e.target.value))}
 					/>

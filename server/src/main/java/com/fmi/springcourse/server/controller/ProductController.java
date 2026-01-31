@@ -3,7 +3,7 @@ package com.fmi.springcourse.server.controller;
 import com.fmi.springcourse.server.dto.PageResponse;
 import com.fmi.springcourse.server.dto.product.ProductDetails;
 import com.fmi.springcourse.server.dto.product.ProductDetailsWithCollectionIds;
-import com.fmi.springcourse.server.dto.product.ProductListDTO;
+import com.fmi.springcourse.server.dto.product.ProductListDto;
 import com.fmi.springcourse.server.dto.product.ProductRequest;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,7 +39,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/list")
-	public PageResponse<ProductListDTO> listProducts(Pageable pageable) {
+	public PageResponse<ProductListDto> listProducts(Pageable pageable) {
 		return service.listProducts(pageable);
 	}
 	
@@ -89,6 +90,11 @@ public class ProductController {
 		ProductDetails updatedProduct = service.updateProduct(id, product);
 		
 		return ResponseEntity.ok(updatedProduct);
+	}
+	
+	@GetMapping("/most-sold")
+	public List<ProductListDto> getTopNMostSold(@RequestParam int n) {
+		return service.getTopNMostSold(n);
 	}
 	
 	@ExceptionHandler(InvalidEntityDataException.class)

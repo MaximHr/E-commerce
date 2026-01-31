@@ -5,7 +5,7 @@ import com.fmi.springcourse.server.entity.Product;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-public record ProductListDTO(Long id,
+public record ProductListDto(Long id,
                              String title,
                              BigDecimal price,
                              Integer quantity,
@@ -13,7 +13,7 @@ public record ProductListDTO(Long id,
                              String image,
                              UUID slug
 ) {
-	public ProductListDTO(Product p) {
+	public ProductListDto(Product p) {
 		
 		this(
 			p.getId(),

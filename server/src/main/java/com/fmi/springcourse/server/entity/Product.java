@@ -34,13 +34,15 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	
+	@Column(nullable = false)
 	private String title;
 	
+	@Column(nullable = false)
 	private BigDecimal price;
 	
 	private Integer quantity;
 	
-	@Column(length = MAX_DESCRIPTION_LENGTH)
+	@Column(length = MAX_DESCRIPTION_LENGTH, nullable = false)
 	private String description;
 	
 	private BigDecimal discount;

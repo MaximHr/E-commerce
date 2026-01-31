@@ -3,7 +3,7 @@ package com.fmi.springcourse.server.service.impl;
 import com.fmi.springcourse.server.dto.PageResponse;
 import com.fmi.springcourse.server.dto.product.ProductDetails;
 import com.fmi.springcourse.server.dto.product.ProductDetailsWithCollectionIds;
-import com.fmi.springcourse.server.dto.product.ProductListDTO;
+import com.fmi.springcourse.server.dto.product.ProductListDto;
 import com.fmi.springcourse.server.dto.product.ProductRequest;
 import com.fmi.springcourse.server.entity.Collection;
 import com.fmi.springcourse.server.entity.Product;
@@ -95,6 +95,17 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	@Transactional(readOnly = true)
+	public List<ProductListDto> getTopNMostSold(int n) {
+		Pageable limit = PageRequest.of(0, n);
+		
+		return repository.findTopSellingProducts(limit)
+			.stream()
+			.map(ProductListDto::new)
+			.toList();
+	}
+	
+	@Override
 	@Transactional
 	public ProductDetails updateProduct(Long id, ProductRequest req) {
 		var newProduct = new Product(
@@ -158,12 +169,12 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	@Transactional(readOnly = true)
-	public PageResponse<ProductListDTO> listProducts(Pageable pageable) {
+	public PageResponse<ProductListDto> listProducts(Pageable pageable) {
 		Pageable safePageable = checkPageable(pageable);
 		Page<Product> productPage = repository.findAll(safePageable);
 		
-		List<ProductListDTO> content = productPage.stream()
-			.map(ProductListDTO::new)
+		List<ProductListDto> content = productPage.stream()
+			.map(ProductListDto::new)
 			.toList();
 		
 		return new PageResponse<>(

@@ -1,12 +1,16 @@
 package com.fmi.springcourse.server.service.impl;
 
-import com.fmi.springcourse.server.dto.OrderDto;
+import com.fmi.springcourse.server.dto.order.OrderDto;
+import com.fmi.springcourse.server.entity.OrderItem;
 import com.fmi.springcourse.server.entity.Product;
+import com.fmi.springcourse.server.exception.OrderException;
 import com.fmi.springcourse.server.exception.PaymentException;
+import com.fmi.springcourse.server.repository.OrderRepository;
 import com.fmi.springcourse.server.repository.PaymentRepository;
 import com.fmi.springcourse.server.repository.ProductRepository;
 import com.fmi.springcourse.server.service.PaymentService;
 import com.fmi.springcourse.server.valueobject.OrderDetails;
+import com.fmi.springcourse.server.valueobject.SessionInfo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +23,13 @@ import java.util.stream.Collectors;
 public class PaymentServiceImpl implements PaymentService {
 	private final PaymentRepository paymentRepository;
 	private final ProductRepository productRepository;
+	private final OrderRepository orderRepository;
 	
-	public PaymentServiceImpl(PaymentRepository paymentRepository, ProductRepository productRepository) {
+	public PaymentServiceImpl(PaymentRepository paymentRepository, ProductRepository productRepository,
+	                          OrderRepository orderRepository) {
 		this.paymentRepository = paymentRepository;
 		this.productRepository = productRepository;
+		this.orderRepository = orderRepository;
 	}
 	
 	@Override
@@ -57,6 +64,43 @@ public class PaymentServiceImpl implements PaymentService {
 		return new OrderDetails(
 			product,
 			quantity
+		);
+	}
+	
+	@Override
+	@Transactional
+	public void acceptSuccessfulPayment(String payload, String signatureHeader) {
+		SessionInfo sessionInfo = paymentRepository
+			.extractSessionInformation(payload, signatureHeader);
+		
+		if (sessionInfo != null) {
+			Set<Long> productIds = sessionInfo.orderItemsMap()
+				.keySet();
+			List<Product> products = productRepository.findAllById(productIds);
+			
+			List<OrderItem> orderItems = products.stream()
+				.map(product -> convertToOrderItem(product, sessionInfo))
+				.toList();
+			
+			sessionInfo.orderItemsMap()
+				.forEach(productRepository::decreaseQuantity);
+			
+			sessionInfo.order()
+				.setItems(orderItems);
+			
+			orderRepository.save(sessionInfo.order());
+		}
+	}
+	
+	private OrderItem convertToOrderItem(Product product, SessionInfo sessionInfo) {
+		if (product.getQuantity() < sessionInfo.orderItemsMap().get(product.getId())) {
+			throw new OrderException("More items than they are in stock have been bought!");
+		}
+		
+		return new OrderItem(
+			sessionInfo.order(),
+			product,
+			sessionInfo.orderItemsMap().get(product.getId())
 		);
 	}
 }
