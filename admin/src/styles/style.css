@@ -1,13 +1,23 @@
 @font-face {
-  font-family: "special-font";
+  font-family: "kaio-black";
+  src: url("../assets/KaioTRIAL-Black-BF65f24de1e055e.otf");
+}
+
+@font-face {
+  font-family: "main-font";
   src: url("../assets/font.woff2");
 }
+
 html, body {
 	overflow-x: hidden;
 }
 
 .special-font {
-  font-family: "special-font";
+  font-family: "kaio-black";
+}
+
+th, .admin button, div[role="dialog"] button, div[role="alertdialog"] button {
+	font-family: "main-font";
 }
 
 ::selection {
@@ -65,4 +75,34 @@ button {
 .rsw-ce ol {
   list-style-type: decimal;
   list-style-position: inside;
+}
+
+.stats-card {
+	background-color: var(--primary);
+	padding: 0.5rem 1.5rem;
+	max-width: 350px;	
+	border-radius: 20px;
+	min-height: 170px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	box-shadow: 4px 4px 0 #240029;
+}
+.stats-title {
+	font-family: "kaio-black";
+	font-size: 2.25rem;
+}
+.stats-desc {
+	font-family: "main-font";
+	font-size: 1rem;
+}
+.stats-card button {
+	margin-top: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .card-holder {
+		flex-direction: column;
+	}
 }

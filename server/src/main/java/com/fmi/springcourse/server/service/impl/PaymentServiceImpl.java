@@ -42,12 +42,14 @@ public class PaymentServiceImpl implements PaymentService {
 			));
 		
 		List<Product> products = productRepository.findAllById(quantityMap.keySet());
-		
+		System.out.println(products);
 		Set<OrderDetails> orderDetails = products.stream()
 			.map(product -> convertToOrder(product, quantityMap.get(product.getId())))
 			.collect(Collectors.toSet());
 		
-		return paymentRepository.createPaymentSessionLink(orderDetails);
+		var link = paymentRepository.createPaymentSessionLink(orderDetails);
+		System.out.println(link);
+		return link;
 	}
 	
 	private OrderDetails convertToOrder(Product product, Long quantity) {

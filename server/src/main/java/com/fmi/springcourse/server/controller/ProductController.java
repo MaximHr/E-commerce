@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -64,7 +63,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("/withCollectionIds/{slug}")
-	public ResponseEntity<ProductDetailsWithCollectionIds> getProductBySlugWithCollectionIds(@PathVariable String slug) {
+	public ResponseEntity<ProductDetailsWithCollectionIds> getProductBySlugWithCollectionIds(
+		@PathVariable String slug) {
 		ProductDetailsWithCollectionIds product = service.getProductBySlugWithCollectionIds(slug);
 		
 		return ResponseEntity.ok(product);
@@ -92,8 +92,8 @@ public class ProductController {
 		return ResponseEntity.ok(updatedProduct);
 	}
 	
-	@GetMapping("/most-sold")
-	public List<ProductListDto> getTopNMostSold(@RequestParam int n) {
+	@GetMapping("/most-sold/{n}")
+	public List<ProductListDto> getTopNMostSold(@PathVariable int n) {
 		return service.getTopNMostSold(n);
 	}
 	

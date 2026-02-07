@@ -49,7 +49,7 @@ public class SecurityConfig {
 	}
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 		http
 			.csrf(AbstractHttpConfigurer::disable)
 			.sessionManagement(
@@ -70,8 +70,8 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.POST, "/collections/**").authenticated()
 			.requestMatchers(HttpMethod.PUT, "/collections/*").authenticated()
 			.requestMatchers(HttpMethod.DELETE, "/collections/**").authenticated()
-			.requestMatchers(HttpMethod.GET, "/products/*").permitAll()
 			.requestMatchers(HttpMethod.GET, "/products/withCollectionIds/*").authenticated()
+			.requestMatchers(HttpMethod.GET, "/products/**").permitAll()
 			.requestMatchers(HttpMethod.POST, "/products/upload").authenticated()
 			.requestMatchers(HttpMethod.DELETE, "/products/*").authenticated()
 			.requestMatchers(HttpMethod.PUT, "/products/*").authenticated()

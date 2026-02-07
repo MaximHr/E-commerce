@@ -154,6 +154,15 @@ public class Product {
 	}
 	
 	@Override
+	public String toString() {
+		return "Product{" +
+			"title='" + title + '\'' +
+			", price=" + price +
+			", id=" + id +
+			'}';
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hashCode(id);
 	}

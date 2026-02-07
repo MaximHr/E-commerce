@@ -5,7 +5,6 @@ import com.fmi.springcourse.server.dto.order.OrderResponseDto;
 import com.fmi.springcourse.server.dto.order.UpdateOrderStatusRequest;
 import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.service.OrderService;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;

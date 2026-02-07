@@ -28,7 +28,7 @@ const Admin = () => {
     <SidebarProvider>
       <AppSidebar user={user} />
       <ToastContainer />
-      <div className="p-7 w-full">
+      <div className="p-7 w-full admin">
         <Outlet context={{ user }} />
       </div>
     </SidebarProvider>

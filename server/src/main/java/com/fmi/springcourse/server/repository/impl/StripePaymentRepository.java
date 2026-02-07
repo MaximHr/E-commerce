@@ -31,14 +31,11 @@ public class StripePaymentRepository implements PaymentRepository {
 	@Value("${stripe.webhook.secret}")
 	private String webhookSecret;
 	
-	@Value("${store.url}")
-	private String storeUrl;
+//	@Value("${store.url}")
+	private String storeUrl = "https://doroty.netlify.app/";
 	
-	//TODO
-	//	private final String successUrl = storeUrl + "success";
-	// private final String cancelUrl = storeUrl + "cancel";
-	private final String successUrl = "https://doroty.netlify.app/" + "success";
-	private final String cancelUrl = "https://doroty.netlify.app/" + "cancel";
+	private final String successUrl = storeUrl + "success";
+	private final String cancelUrl = storeUrl + "cancel";
 	
 	private static final String ISO_CURRENCY = "eur";
 	private static final int CENTS_PER_UNIT = 100;
@@ -54,9 +51,10 @@ public class StripePaymentRepository implements PaymentRepository {
 	public String createPaymentSessionLink(Set<OrderDetails> orders) {
 		try {
 			SessionCreateParams params = generateSessionParams(orders);
-			
+			System.out.println(params);
 			return Session.create(params).getUrl();
 		} catch (StripeException e) {
+			System.out.println(e.getMessage());
 			throw new PaymentException("Could not create a checkout session.", e);
 		}
 	}

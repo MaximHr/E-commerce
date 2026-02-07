@@ -39,6 +39,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		    FROM Product p
 		    JOIN OrderItem oi ON oi.product.id = p.id
 		    GROUP BY p
+		    HAVING SUM(oi.quantity) > 0
 		    ORDER BY SUM(oi.quantity) DESC
 		""")
 	List<Product> findTopSellingProducts(Pageable pageable);

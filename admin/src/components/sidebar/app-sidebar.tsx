@@ -18,7 +18,7 @@ type SidebarProps = React.ComponentProps<typeof Sidebar>;
 
 type AppSidebarProps = {
   user?: Exclude<UserT, undefined>;
-} & Omit<SidebarProps, 'user'>;
+} & Omit<SidebarProps, "user">;
 
 export function AppSidebar({ user, ...props }: AppSidebarProps) {
   return (
@@ -34,7 +34,7 @@ export function AppSidebar({ user, ...props }: AppSidebarProps) {
                 <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
                   <GalleryVerticalEnd className="size-4" />
                 </div>
-                <span className="text-base font-semibold">
+                <span className="text-base font-semibold special-font opacity-85">
                   {import.meta.env.VITE_COMPANY_NAME}
                 </span>
               </Link>

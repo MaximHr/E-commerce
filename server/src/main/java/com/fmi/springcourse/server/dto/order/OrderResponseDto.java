@@ -1,6 +1,5 @@
 package com.fmi.springcourse.server.dto.order;
 
-import com.fmi.springcourse.server.entity.OrderItem;
 import com.fmi.springcourse.server.valueobject.Address;
 import com.fmi.springcourse.server.valueobject.Client;
 import com.fmi.springcourse.server.valueobject.OrderStatus;

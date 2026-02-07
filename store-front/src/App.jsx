@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Cart from "./Components/Cart";
-import { fetchCollections, fetchCollectionsBySlug } from "./utils/getData";
+import { fetchCollections, fetchCollectionsBySlug, fetchMostSellingProducts } from "./utils/getData";
 
 function App() {
   const [isCartToggled, setCartToggle] = useState(false);
@@ -14,11 +14,11 @@ function App() {
   const [lastPos, setLastPos] = useState(0);
   const [collections, setCollections] = useState([]);
   const [storeOptions, setStoreOptions] = useState();
-  const [mainProducts, setMainProducts] = useState([{}, {}, {}, {}, {}]);
+  const [mainProducts, setMainProducts] = useState([{}, {}, {}, {}]);
 
   const loadMainCategoryItems = async () => {
     try {
-      const data = await fetchCollectionsBySlug("asd");
+      const data = await fetchMostSellingProducts(4);
       setMainProducts([...data]);
     } catch (err) {
       toast.error(err.message);

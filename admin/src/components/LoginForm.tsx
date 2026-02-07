@@ -46,7 +46,7 @@ export function LoginForm({
     >
       <FieldGroup>
         <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-3xl font-bold">Admin panel</h1>
+          <h1 className="text-3xl font-bold special-font">Admin panel</h1>
           <p className="text-muted-foreground text-sm text-balance">
             Enter your email below to login to your account
           </p>

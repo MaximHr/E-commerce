@@ -28,6 +28,32 @@ export const fetchProducts = async (pageNumber, size, sortBy, order) => {
   }
 };
 
+export const fetchMostSellingProducts = async (n) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/products/most-sold/${n}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(response.error);
+    }
+  } catch (err) {
+    throw new Error(
+      err.message ||
+        "Unable to retrieve products. Please refresh and try again.",
+    );
+  }
+};
+
 export const createCheckout = async (orders) => {
   try {
     const response = await fetch(
