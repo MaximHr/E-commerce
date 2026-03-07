@@ -10,14 +10,12 @@ const ORDER_PAGE_SIZE = 100;
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>();
 	const [totalElements, setTotalElements] = useState<number>();
-	const [totalPages, setTotalPages] = useState<number>();
 
   const loadOrders = async () => {
     try {
       const res = await getAllOrders(0, ORDER_PAGE_SIZE);
 			setOrders(res.content);
       setTotalElements(res.totalElements);
-			setTotalPages(res.totalElements);
     } catch (err) {
       if (err instanceof Error) {
         handleError(err.message);

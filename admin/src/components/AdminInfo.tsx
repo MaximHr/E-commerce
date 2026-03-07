@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, CardTitle } from '@/components/ui/card';
 
 const AdminInfo = () => {
