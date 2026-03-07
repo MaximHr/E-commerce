@@ -1,5 +1,4 @@
 import {
-  IconSettings,
   IconTag,
   IconPackage,
   IconHome,
@@ -38,13 +37,7 @@ const data = {
       url: "/admin/members",
       icon: IconUsers,
       accessedBy: ["Owner", "Store manager"],
-    },
-    {
-      title: "Settings",
-      url: "/admin/settings",
-      icon: IconSettings,
-      accessedBy: ["Owner", "Store manager", "Product manager"],
-    },
+    }
   ],
 };
 

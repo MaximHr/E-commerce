@@ -1,5 +1,8 @@
 import { handleError } from "@/api/errorHandler";
-import { fetchProductBySlugWithCollectionIds, updateProduct } from "@/api/products";
+import {
+  fetchProductBySlugWithCollectionIds,
+  updateProduct,
+} from "@/api/products";
 import { ProductEdit } from "@/components/ProductEdit";
 import ProductNotFound from "@/components/ProductNotFound";
 import type { ProductTRequestWithCollections } from "@/types/product";
@@ -12,6 +15,7 @@ const UpdateProduct = () => {
   const [price, setPrice] = useState<number | "">("");
   const [quantity, setQuantity] = useState<number | "">("");
   const [discount, setDiscount] = useState<number | "">("");
+  const [titleImage, setTitleImage] = useState<string>("");
   const [images, setImages] = useState<string[]>([]);
   const [id, setId] = useState<number>();
   const [chosen, setChosen] = useState<number[]>([]);
@@ -39,7 +43,8 @@ const UpdateProduct = () => {
       quantity,
       discount,
       images,
-			collectionsIds: chosen
+      collectionsIds: chosen,
+			titleImage
     };
 
     try {
@@ -57,15 +62,16 @@ const UpdateProduct = () => {
   const getProduct = async (slug: string) => {
     try {
       const product = await fetchProductBySlugWithCollectionIds(slug);
-			
+
       setName(product.title);
       setDescription(product.description);
       setDiscount(product.discount);
       setImages(product.images);
       setQuantity(product.quantity);
+			setTitleImage(product.titleImage);
       setPrice(product.price);
       setId(product.id);
-			setChosen(product.collectionsIds)
+      setChosen(product.collectionsIds);
     } catch {
       setFoundWrongSlug(true);
     }
@@ -94,6 +100,8 @@ const UpdateProduct = () => {
               setPrice={setPrice}
               images={images}
               setImages={setImages}
+              setTitleImage={setTitleImage}
+              titleImage={titleImage}
               description={description}
               setDescription={setDescription}
               discount={discount}
@@ -102,8 +110,8 @@ const UpdateProduct = () => {
               setQuantity={setQuantity}
               handleProductSubmission={handleProductSubmission}
               shouldAdd={false}
-							chosen={chosen}
-							setChosen={setChosen}
+              chosen={chosen}
+              setChosen={setChosen}
             />
           </div>
         )

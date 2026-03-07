@@ -10,7 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
@@ -47,6 +46,9 @@ public class Product {
 	
 	private BigDecimal discount;
 	
+	@Column(nullable = false)
+	private String titleImage;
+	
 	@Column(updatable = false, nullable = false, unique = true)
 	private final UUID slug = UUID.randomUUID();
 	
@@ -55,7 +57,6 @@ public class Product {
 	private final Instant createdAt = Instant.now();
 	
 	@ElementCollection(fetch = FetchType.LAZY)
-	@NotNull
 	private List<String> images;
 	
 	@ManyToMany(mappedBy = "products", fetch = FetchType.LAZY)
@@ -69,7 +70,8 @@ public class Product {
 	               Integer quantity,
 	               String description,
 	               BigDecimal discount,
-	               List<String> images
+	               List<String> images,
+	               String titleImage
 	) {
 		this.title = title;
 		this.price = price;
@@ -77,6 +79,7 @@ public class Product {
 		this.description = description;
 		this.discount = discount;
 		this.images = images;
+		this.titleImage = titleImage;
 	}
 	
 	public Long getId() {
@@ -145,6 +148,14 @@ public class Product {
 	
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+	
+	public String getTitleImage() {
+		return titleImage;
+	}
+	
+	public void setTitleImage(String titleImage) {
+		this.titleImage = titleImage;
 	}
 	
 	@Override

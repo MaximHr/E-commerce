@@ -13,6 +13,7 @@ const AddProduct = () => {
   const [quantity, setQuantity] = useState<number | "">("");
   const [discount, setDiscount] = useState<number | "">("");
   const [images, setImages] = useState<string[]>([]);
+	const [titleImage, setTitleImage] = useState<string>("");
   const [chosen, setChosen] = useState<number[]>([]);
 
   const handleProductSubmission = async () => {
@@ -26,7 +27,8 @@ const AddProduct = () => {
         quantity,
         discount,
         images,
-				collectionsIds: chosen
+				collectionsIds: chosen,
+				titleImage
       };
       await addProduct(product);
       navigate("/admin/products");
@@ -48,6 +50,8 @@ const AddProduct = () => {
         setPrice={setPrice}
         images={images}
         setImages={setImages}
+				setTitleImage={setTitleImage}
+				titleImage={titleImage}
         description={description}
         setDescription={setDescription}
         discount={discount}

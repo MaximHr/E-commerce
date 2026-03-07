@@ -3,13 +3,8 @@ import { getTotalItemsSold, getTotalRevenue } from "@/api/orders";
 import type { UserT } from "@/types/user";
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router";
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { Button, buttonVariants } from '@/components/ui/button';
+
+import { Button } from '@/components/ui/button';
 
 type OutletContextType = {
   user: UserT;

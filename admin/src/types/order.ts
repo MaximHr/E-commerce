@@ -25,4 +25,6 @@ export interface Order {
   items: OrderItemDto[];
   status: string;
   totalPrice: number;
+	createdAt: number; // or is it
+	amountTotal: number;
 }

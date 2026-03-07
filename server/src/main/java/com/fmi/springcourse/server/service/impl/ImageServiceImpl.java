@@ -37,7 +37,13 @@ public class ImageServiceImpl implements ImageService {
 			}
 		}
 		
-		return imageRepository.upload(images);
+		if (images.size() == 1) {
+			return List.of(
+				imageRepository.singleImageUpload(images.getFirst())
+			);
+		}
+		
+		return imageRepository.uploadMultipleImages(images);
 	}
 	
 	@Override

@@ -5,7 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import Cart from "./Components/Cart";
-import { fetchCollections, fetchCollectionsBySlug, fetchMostSellingProducts } from "./utils/getData";
+import { fetchCollections, fetchMostSellingProducts } from "./utils/getData";
+import Alert from "./Components/Alert";
 
 function App() {
   const [isCartToggled, setCartToggle] = useState(false);
@@ -27,7 +28,7 @@ function App() {
 
   const loadStoreDetails = () => {
     const storeId = JSON.parse(
-      document.querySelector('meta[name="store-id"]')?.getAttribute("content")
+      document.querySelector('meta[name="store-id"]')?.getAttribute("content"),
     );
 
     const primaryColor = document
@@ -43,7 +44,7 @@ function App() {
     document.documentElement.style.setProperty("--primary-color", primaryColor);
     document.documentElement.style.setProperty(
       "--secondary-color",
-      secondaryColor
+      secondaryColor,
     );
 
     setStoreOptions({
@@ -74,6 +75,7 @@ function App() {
       <ScrollRestoration />
       <ToastContainer />
 
+      <Alert />
       <Navbar
         collections={collections}
         setCartToggle={setCartToggle}

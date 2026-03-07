@@ -26,7 +26,9 @@ interface ProductEditPropsT {
   handleProductSubmission: () => Promise<void>;
   shouldAdd: boolean;
 	chosen: number[];
-	setChosen: Dispatch<SetStateAction<number[]>>;
+	setChosen: Dispatch<SetStateAction<number[]>>,
+	titleImage: string,
+	setTitleImage: Dispatch<SetStateAction<string>>;
 }
 
 export const ProductEdit = ({
@@ -45,24 +47,25 @@ export const ProductEdit = ({
   handleProductSubmission,
   shouldAdd,
 	chosen,
-	setChosen
+	setChosen,
+	titleImage,
+	setTitleImage
 }: ProductEditPropsT) => {
   const [page, setPage] = useState<number>(1);
 
   const pageHandler = (value: number) => {
-    if (name.trim().length == 0) {
+    if (name.trim().length === 0) {
       handleError("Field name is required");
       return;
     } else if (price === "" || price <= 0.5) {
       handleError("Price must be at least 0.5 euro");
       return;
-    } else if (images.length === 0) {
-      handleError("Upload at least 1 image of your product");
-      return;
-    } else if (description.trim().length == 0) {
+    } else if (description.trim().length === 0) {
       handleError("Field description is required.");
       return;
-    }
+    } else if (titleImage.trim().length === 0) {
+			handleError("Title image is required.")
+		}
     if (discount === "") {
       setDiscount(0);
     }
@@ -119,6 +122,8 @@ export const ProductEdit = ({
           setPrice={setPrice}
           setImages={setImages}
           setDiscount={setDiscount}
+					titleImage={titleImage}
+					setTitleImage={setTitleImage}
         />
       )}
 			{

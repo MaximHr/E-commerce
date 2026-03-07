@@ -14,6 +14,7 @@ public record ProductDetails(Long id,
                              Integer quantity,
                              BigDecimal discount,
                              List<String> images,
+							 String titleImage,
                              UUID slug,
                              Instant createdAt
 ) {
@@ -26,6 +27,7 @@ public record ProductDetails(Long id,
 			p.getQuantity(),
 			p.getDiscount(),
 			p.getImages(),
+			p.getTitleImage(),
 			p.getSlug(),
 			p.getCreatedAt()
 		);

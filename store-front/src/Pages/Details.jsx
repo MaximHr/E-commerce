@@ -7,18 +7,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { fetchProductBySlug } from "../utils/getData";
 import Container from "../Components/Container";
 
-// const sortTitleImageFirst = (images) => {
-//   if (!images || !Array.isArray(images)) return images;
-
-//   const index = images.findIndex((img) => img.isTitleImage);
-//   if (index > 0) {
-//     const temp = images[0];
-//     images[0] = images[index];
-//     images[index] = temp;
-//   }
-//   return images;
-// };
-
 const Details = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -30,7 +18,8 @@ const Details = () => {
   const loadProduct = async (slug) => {
     try {
       const data = await fetchProductBySlug(slug);
-      setProduct(data);
+			console.log(data);
+      setProduct({...data, images: [data.titleImage, ...data.images]});
     } catch (err) {
       setProductNotFound(true);
     }
@@ -39,9 +28,6 @@ const Details = () => {
   useEffect(() => {
     loadProduct(id);
   }, [id]);
-
-  // useEffect(() => {
-  // }, [loaded]);
 
   return (
     <div className="details-page">

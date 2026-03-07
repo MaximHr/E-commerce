@@ -22,6 +22,7 @@ ReactDOM.createRoot(root!).render(
   <BrowserRouter>
     <Routes>
       <Route path="login" element={<LogIn />} />
+      <Route path="" element={<LogIn />} />
       <Route path="forgotten-password" element={<ForgottenPassword />} />
 
       <Route element={<ProtectedRoute />}>

@@ -88,19 +88,6 @@ export function NavUser({ user }: { user: UserT }) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <IconUserCircle />
-                  Account
-                </DropdownMenuItem>
-                {user.role === "Owner" && (
-                  <DropdownMenuItem>
-                    <IconCreditCard />
-                    Billing
-                  </DropdownMenuItem>
-                )}
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={logout}>
                 <IconLogout />
                 Log out

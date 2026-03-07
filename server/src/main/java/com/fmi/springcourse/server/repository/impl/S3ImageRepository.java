@@ -13,8 +13,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,6 +20,7 @@ import java.util.UUID;
 public class S3ImageRepository implements ImageRepository {
 	private static final String FOLDER = "image/";
 	private final S3Client client;
+	
 	@Value("${r2.bucket-name}")
 	private String bucketName;
 	
@@ -30,28 +29,10 @@ public class S3ImageRepository implements ImageRepository {
 	}
 	
 	@Override
-	public List<String> upload(List<MultipartFile> images) {
-		List<String> urls = new ArrayList<>(images.size());
-		
-		for (MultipartFile image : images) {
-			urls.add(putObject(image));
-		}
-		
-		return Collections.unmodifiableList(urls);
-	}
-	
-	@Override
-	public void delete(String id) {
-		try {
-			DeleteObjectRequest request = DeleteObjectRequest.builder()
-				.bucket(bucketName)
-				.key(FOLDER + id)
-				.build();
-			
-			client.deleteObject(request);
-		} catch (S3Exception e) {
-			throw new ImageDeletionException("Could not delete image", e);
-		}
+	public List<String> uploadMultipleImages(List<MultipartFile> images) {
+		return images.parallelStream()
+			.map(this::putObject)
+			.toList();
 	}
 	
 	private String putObject(MultipartFile file) {
@@ -73,6 +54,25 @@ public class S3ImageRepository implements ImageRepository {
 			return uuid;
 		} catch (IOException | S3Exception e) {
 			throw new ImageUploadException("Could not upload image", e);
+		}
+	}
+	
+	@Override
+	public String singleImageUpload(MultipartFile img) {
+		return putObject(img);
+	}
+	
+	@Override
+	public void delete(String id) {
+		try {
+			DeleteObjectRequest request = DeleteObjectRequest.builder()
+				.bucket(bucketName)
+				.key(FOLDER + id)
+				.build();
+			
+			client.deleteObject(request);
+		} catch (S3Exception e) {
+			throw new ImageDeletionException("Could not delete image", e);
 		}
 	}
 }

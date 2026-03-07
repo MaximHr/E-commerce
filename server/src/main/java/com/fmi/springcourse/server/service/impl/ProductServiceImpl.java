@@ -49,7 +49,8 @@ public class ProductServiceImpl implements ProductService {
 			req.getQuantity(),
 			req.getDescription(),
 			req.getDiscount(),
-			req.getImages()
+			req.getImages(),
+			req.getTitleImage()
 		);
 		sanitizeProductDetails(productReq);
 		
@@ -114,7 +115,8 @@ public class ProductServiceImpl implements ProductService {
 			req.getQuantity(),
 			req.getDescription(),
 			req.getDiscount(),
-			req.getImages()
+			req.getImages(),
+			req.getTitleImage()
 		);
 		sanitizeProductDetails(newProduct);
 		
@@ -130,6 +132,7 @@ public class ProductServiceImpl implements ProductService {
 		existingProduct.setImages(newProduct.getImages());
 		existingProduct.setQuantity(newProduct.getQuantity());
 		existingProduct.setPrice(newProduct.getPrice());
+		existingProduct.setTitleImage(newProduct.getTitleImage());
 		updateCollectionsOfProduct(existingProduct, req.getCollectionsIds());
 		
 		return new ProductDetails(repository.save(existingProduct));

@@ -10,7 +10,7 @@ public record ProductListDto(Long id,
                              BigDecimal price,
                              Integer quantity,
                              BigDecimal discount,
-                             String image,
+                             String titleImage,
                              UUID slug
 ) {
 	public ProductListDto(Product p) {
@@ -21,7 +21,7 @@ public record ProductListDto(Long id,
 			p.getPrice(),
 			p.getQuantity(),
 			p.getDiscount(),
-			p.getImages().getFirst(),
+			p.getTitleImage(),
 			p.getSlug()
 		);
 	}

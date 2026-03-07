@@ -50,18 +50,21 @@ public class ProductRequest {
 	@DecimalMax(value = "100", message = "Discount cannot be more than 100")
 	private final BigDecimal discount;
 	
-	@NotNull(message = "Images cannot be null")
-	private List<@NotBlank(message = "Image URL cannot be blank") String> images;
+	private List<String> images;
+	
+	@NotNull(message = "Title image can not be null")
+	private String titleImage;
 	
 	private final long[] collectionsIds;
 	
 	public ProductRequest(String title, BigDecimal price, Integer quantity, String description,
-	                      BigDecimal discount, List<String> images, long[] collectionsIds) {
+	                      BigDecimal discount, List<String> images, String titleImage, long[] collectionsIds) {
 		this.title = title;
 		this.price = price;
 		this.quantity = quantity;
 		this.description = description;
 		this.discount = discount;
+		this.titleImage = titleImage;
 		this.images = images;
 		this.collectionsIds = collectionsIds;
 	}
@@ -96,6 +99,14 @@ public class ProductRequest {
 	
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+	
+	public String getTitleImage() {
+		return titleImage;
+	}
+	
+	public void setTitleImage(String titleImage) {
+		this.titleImage = titleImage;
 	}
 }
 

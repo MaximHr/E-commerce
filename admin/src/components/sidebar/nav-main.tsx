@@ -1,4 +1,4 @@
-import { type Icon } from "@tabler/icons-react"
+import { IconLink, type Icon } from "@tabler/icons-react"
 import { Link } from "react-router"
 
 import {
@@ -40,6 +40,14 @@ export function NavMain({
 							</SidebarMenuItem>
 						</Link>
           ))}
+					<a target="_blank" href="https://doroty.netlify.app/">
+						<SidebarMenuItem >
+								<SidebarMenuButton tooltip="https://doroty.netlify.app/">
+									<IconLink />
+									<span>Live webstore</span>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+					</a>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

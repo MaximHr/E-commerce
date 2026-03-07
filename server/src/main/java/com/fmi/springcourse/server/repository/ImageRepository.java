@@ -5,7 +5,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface ImageRepository {
-	List<String> upload(List<MultipartFile> images);
+	List<String> uploadMultipleImages(List<MultipartFile> images);
+	
+	String singleImageUpload(MultipartFile file);
 	
 	void delete(String id);
 }

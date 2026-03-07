@@ -22,8 +22,8 @@ const Product = ({ item }) => {
       <div className="img-container">
         <img
           src={
-            item.image &&
-            import.meta.env.VITE_R2_BUCKET_URL + "/image/" + item.image
+            item.titleImage &&
+            import.meta.env.VITE_R2_BUCKET_URL + "/image/" + item.titleImage
           }
           alt={item.id ? "toys" : ""}
         />

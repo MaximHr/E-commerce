@@ -48,7 +48,7 @@ public class PaymentServiceImpl implements PaymentService {
 			.collect(Collectors.toSet());
 		
 		var link = paymentRepository.createPaymentSessionLink(orderDetails);
-		System.out.println(link);
+		
 		return link;
 	}
 	

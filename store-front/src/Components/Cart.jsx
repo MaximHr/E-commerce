@@ -73,12 +73,19 @@ const Cart = ({ setCartToggle, isCartToggled, products, setProducts }) => {
         </div>
         {products.length > 0 ? (
           <div className="cart-bottom">
-            <h2 className="cart-title">
-              Total: € <span className="cart-total">{total}</span>
-            </h2>
-            <button disabled={loading} onClick={checkOutHandler} className="button">
-              {loading ? "Loading..." : "Checkout"}
-            </button>
+            <p className="card-number-info">Note: You can use <i>4242 4242 4242 4242</i> as card number to make a purchase.</p>
+            <div>
+              <h2 className="cart-title">
+                Total: € <span className="cart-total">{total}</span>
+              </h2>
+              <button
+                disabled={loading}
+                onClick={checkOutHandler}
+                className="button"
+              >
+                {loading ? "Loading..." : "Checkout"}
+              </button>
+            </div>
           </div>
         ) : (
           <></>

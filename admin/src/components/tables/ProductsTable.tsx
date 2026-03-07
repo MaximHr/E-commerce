@@ -42,10 +42,10 @@ const ProductsTable = ({
           {products.map((product) => (
             <TableRow key={product.slug}>
               <TableCell>
-                {product.image ? (
+                {product.titleImage ? (
                   <img
                     src={
-                      import.meta.env.VITE_R2_URL + "/image/" + product.image
+                      import.meta.env.VITE_R2_URL + "/image/" + product.titleImage
                     }
                     alt={product.title}
                     className="w-12 h-12 object-contain rounded"

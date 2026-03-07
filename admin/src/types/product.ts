@@ -6,6 +6,7 @@ export type ProductTResponse = {
   quantity: number;
   discount: number;
   images: string[];
+	titleImage: string;
   slug: string;
   createdAt: string;
 };
@@ -20,7 +21,7 @@ export type ProductTResponseWithCollectionIds = ProductTResponse & {
 
 export type ProductTListResponse = Pick<
   ProductTResponse,
-  "id" | "title" | "price" | "quantity" | "discount" | "slug"
-> & { image: string };
+  "id" | "title" | "price" | "quantity" | "discount" | "slug" | "titleImage"
+>;
 
 type ProductTRequest = Omit<ProductTResponse, "id" | "slug" | "createdAt">;

@@ -2,7 +2,11 @@ import { toast } from "react-toastify";
 
 export function handleError(err: string | string[]): void {
   if (typeof err == "string") {
-    toast.error(err);
+    if (err === "token expired") {
+			localStorage.removeItem("token");
+    } else {
+      toast.error(err);
+    }
   } else {
     err.forEach((message) => {
       toast.error(message);

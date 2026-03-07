@@ -1,6 +1,7 @@
 package com.fmi.springcourse.server.util.jwt;
 
 import com.fmi.springcourse.server.service.impl.UserServiceImpl;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,26 +32,41 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	                                FilterChain filterChain) throws ServletException, IOException {
 		String header = request.getHeader("Authorization");
 		
-		if (header != null && header.startsWith(BEARER)) {
-			String token = header.substring(BEARER.length());
-			String username = jwtUtil.extractUsername(token);
-			
-			if (username != null
-				&& SecurityContextHolder.getContext().getAuthentication() == null) {
-				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+		try {
+			if (header != null && header.startsWith(BEARER)) {
+				String token = header.substring(BEARER.length());
+				String username = jwtUtil.extractUsername(token);
 				
-				if (jwtUtil.validateToken(token, userDetails)) {
-					var auth = new UsernamePasswordAuthenticationToken(
-						userDetails, null, userDetails.getAuthorities()
-					);
-					auth.setDetails(
-						new WebAuthenticationDetailsSource().buildDetails(request)
-					);
-					SecurityContextHolder.getContext().setAuthentication(auth);
+				if (username != null
+					&& SecurityContextHolder.getContext().getAuthentication() == null) {
+					UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+					
+					if (jwtUtil.validateToken(token, userDetails)) {
+						var auth = new UsernamePasswordAuthenticationToken(
+							userDetails, null, userDetails.getAuthorities());
+						
+						auth.setDetails(
+							new WebAuthenticationDetailsSource().buildDetails(request));
+						
+						SecurityContextHolder.getContext()
+							.setAuthentication(auth);
+					}
 				}
 			}
+			
+			filterChain.doFilter(request, response);
+		} catch (ExpiredJwtException e) {
+			handleExpiredToken(response);
 		}
-		
-		filterChain.doFilter(request, response);
+	}
+	
+	private void handleExpiredToken(HttpServletResponse response) throws IOException {
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setContentType("application/json");
+		response.getWriter().write("""
+			    {
+			      "error": "token expired"
+			    }
+			""");
 	}
 }
