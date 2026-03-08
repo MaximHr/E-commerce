@@ -5,8 +5,6 @@ import com.fmi.springcourse.server.dto.user.UserDtoRequest;
 import com.fmi.springcourse.server.dto.user.UserDtoResponse;
 import com.fmi.springcourse.server.entity.User;
 import com.fmi.springcourse.server.exception.EntityAlreadyExists;
-import com.fmi.springcourse.server.exception.EntityNotFoundException;
-import com.fmi.springcourse.server.exception.InvalidEntityDataException;
 import com.fmi.springcourse.server.exception.InvalidRoleException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
@@ -77,22 +75,10 @@ public class MemberController {
 		return new Response<>("Role updated successfully.");
 	}
 	
-	@ExceptionHandler(InvalidEntityDataException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ExceptionResponse invalidEntityHandler(InvalidEntityDataException e) {
-		return new ExceptionResponse(HttpStatus.BAD_REQUEST, e.getMessages());
-	}
-	
 	@ExceptionHandler(InvalidRoleException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse invalidRoleHandler(InvalidRoleException e) {
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST, List.of(e.getMessage()));
-	}
-	
-	@ResponseStatus(HttpStatus.NOT_FOUND)
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ExceptionResponse entityNotFoundHandler(EntityNotFoundException e) {
-		return new ExceptionResponse(HttpStatus.NOT_FOUND, List.of(e.getMessage()));
 	}
 	
 	@ResponseStatus(HttpStatus.CONFLICT)

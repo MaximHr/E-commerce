@@ -3,14 +3,11 @@ package com.fmi.springcourse.server.controller;
 import com.fmi.springcourse.server.dto.PageResponse;
 import com.fmi.springcourse.server.dto.order.OrderResponseDto;
 import com.fmi.springcourse.server.dto.order.UpdateOrderStatusRequest;
-import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.service.OrderService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,12 +50,5 @@ public class OrderController {
 	@GetMapping("/items-sold")
 	public ResponseEntity<Long> getTotalItemsSold() {
 		return ResponseEntity.ok(orderService.getTotalItemsSold());
-	}
-	
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<String> entityNotFoundHandler(EntityNotFoundException e) {
-		return ResponseEntity
-			.status(HttpStatus.NOT_FOUND)
-			.body(e.getMessage());
 	}
 }

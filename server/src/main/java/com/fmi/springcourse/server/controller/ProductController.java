@@ -5,9 +5,7 @@ import com.fmi.springcourse.server.dto.product.ProductDetails;
 import com.fmi.springcourse.server.dto.product.ProductDetailsWithCollectionIds;
 import com.fmi.springcourse.server.dto.product.ProductListDto;
 import com.fmi.springcourse.server.dto.product.ProductRequest;
-import com.fmi.springcourse.server.exception.EntityNotFoundException;
 import com.fmi.springcourse.server.exception.util.CustomExceptionHandler;
-import com.fmi.springcourse.server.exception.InvalidEntityDataException;
 import com.fmi.springcourse.server.exception.util.ExceptionResponse;
 import com.fmi.springcourse.server.service.ProductService;
 import jakarta.validation.Valid;
@@ -95,19 +93,6 @@ public class ProductController {
 	@GetMapping("/most-sold/{n}")
 	public List<ProductListDto> getTopNMostSold(@PathVariable int n) {
 		return service.getTopNMostSold(n);
-	}
-	
-	@ExceptionHandler(InvalidEntityDataException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public ExceptionResponse invalidEntityHandler(InvalidEntityDataException e) {
-		return new ExceptionResponse(HttpStatus.BAD_REQUEST, e.getMessages());
-	}
-	
-	@ExceptionHandler(EntityNotFoundException.class)
-	public ResponseEntity<String> entityNotFoundHandler(EntityNotFoundException e) {
-		return ResponseEntity
-			.status(HttpStatus.NOT_FOUND)
-			.body(e.getMessage());
 	}
 	
 	@ExceptionHandler(IllegalArgumentException.class)

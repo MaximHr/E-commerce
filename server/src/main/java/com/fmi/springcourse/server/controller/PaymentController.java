@@ -36,7 +36,10 @@ public class PaymentController {
 	@PostMapping("/webhook")
 	public ResponseEntity<String> acceptWebhook(@RequestBody String payload,
 	                                            @RequestHeader("Stripe-Signature") String signatureHeader) {
+		System.out.println("webhook");
+		System.out.println(payload);
 		paymentService.acceptSuccessfulPayment(payload, signatureHeader);
+		System.out.println("after");
 		
 		return ResponseEntity.ok("");
 	}

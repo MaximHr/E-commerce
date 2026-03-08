@@ -28,6 +28,7 @@ ReactDOM.createRoot(root!).render(
       <Route element={<ProtectedRoute />}>
         <Route path="admin" element={<Admin />}>
           <Route path="home" element={<Home />} />
+          <Route path="" element={<Home />} />
           <Route path="products" element={<Products />} />
           <Route path="add-product" element={<AddProduct />} />
           <Route path="products/:slug" element={<UpdateProduct />} />

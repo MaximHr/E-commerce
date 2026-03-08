@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
 	public User getCurrentUser() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
-			CustomUserDetails userDetails =  (CustomUserDetails) authentication.getPrincipal();
+			CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 			
 			return userDetails.getUser();
 		}
