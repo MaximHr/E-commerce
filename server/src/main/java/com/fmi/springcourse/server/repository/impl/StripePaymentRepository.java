@@ -31,12 +31,8 @@ public class StripePaymentRepository implements PaymentRepository {
 	@Value("${stripe.webhook.secret}")
 	private String webhookSecret;
 	
-	//Note: Stripe allows only https urls.
 	@Value("${store.url}")
 	private String storeUrl;
-	
-	private final String successUrl = storeUrl + "success";
-	private final String cancelUrl = storeUrl + "cancel";
 	
 	private static final String ISO_CURRENCY = "eur";
 	private static final int CENTS_PER_UNIT = 100;
@@ -65,8 +61,8 @@ public class StripePaymentRepository implements PaymentRepository {
 				.setMode(SessionCreateParams.Mode.PAYMENT)
 				.setShippingAddressCollection(ALLOWED_COUNTRIES)
 				.setBillingAddressCollection(SessionCreateParams.BillingAddressCollection.REQUIRED)
-				.setSuccessUrl(successUrl)
-				.setCancelUrl(cancelUrl);
+				.setSuccessUrl(getSuccessUrl())
+				.setCancelUrl(getCancelUrl());
 		
 		for (var order : orderDetails) {
 			paramsBuilder.addLineItem(generateItem(order));
@@ -183,5 +179,13 @@ public class StripePaymentRepository implements PaymentRepository {
 				entry -> Long.parseLong(entry.getKey()),
 				entry -> Integer.parseInt(entry.getValue())
 			));
+	}
+	
+	public String getSuccessUrl() {
+		return storeUrl + "success";
+	}
+	
+	public String getCancelUrl() {
+		return storeUrl + "cancel";
 	}
 }
