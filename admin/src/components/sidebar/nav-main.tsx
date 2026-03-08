@@ -40,9 +40,9 @@ export function NavMain({
 							</SidebarMenuItem>
 						</Link>
           ))}
-					<a target="_blank" href="https://doroty.netlify.app/">
+					<a target="_blank" href={import.meta.env.VITE_FRONTSTORE_URL}>
 						<SidebarMenuItem >
-								<SidebarMenuButton tooltip="https://doroty.netlify.app/">
+								<SidebarMenuButton tooltip="Live webstore">
 									<IconLink />
 									<span>Live webstore</span>
 								</SidebarMenuButton>

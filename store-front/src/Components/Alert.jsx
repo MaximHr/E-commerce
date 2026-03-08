@@ -10,7 +10,7 @@ const Alert = () => {
         <div className="alert">
           <p className="container">
             This is a demo website.{" "}
-            <a target="_blank" href="http://localhost:5173/login">
+            <a target="_blank" href={import.meta.env.VITE_ADMIN_URL}>
               You can visit the admin panel here.
             </a>
           </p>
