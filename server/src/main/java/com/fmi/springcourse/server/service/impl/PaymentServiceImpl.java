@@ -42,14 +42,12 @@ public class PaymentServiceImpl implements PaymentService {
 			));
 		
 		List<Product> products = productRepository.findAllById(quantityMap.keySet());
-		System.out.println(products);
+
 		Set<OrderDetails> orderDetails = products.stream()
 			.map(product -> convertToOrder(product, quantityMap.get(product.getId())))
 			.collect(Collectors.toSet());
 		
-		var link = paymentRepository.createPaymentSessionLink(orderDetails);
-		
-		return link;
+		return paymentRepository.createPaymentSessionLink(orderDetails);
 	}
 	
 	private OrderDetails convertToOrder(Product product, Long quantity) {
@@ -75,21 +73,14 @@ public class PaymentServiceImpl implements PaymentService {
 		SessionInfo sessionInfo = paymentRepository
 			.extractSessionInformation(payload, signatureHeader);
 		
-		System.out.println("sessionInfo");
-		System.out.println(sessionInfo);
-		
 		if (sessionInfo != null) {
 			Set<Long> productIds = sessionInfo.orderItemsMap()
 				.keySet();
 			List<Product> products = productRepository.findAllById(productIds);
 			
-			System.out.println(products);
-			
 			List<OrderItem> orderItems = products.stream()
 				.map(product -> convertToOrderItem(product, sessionInfo))
 				.toList();
-			
-			System.out.println(orderItems);
 			
 			sessionInfo.orderItemsMap()
 				.forEach(productRepository::decreaseQuantity);

@@ -36,10 +36,7 @@ public class PaymentController {
 	@PostMapping("/webhook")
 	public ResponseEntity<String> acceptWebhook(@RequestBody String payload,
 	                                            @RequestHeader("Stripe-Signature") String signatureHeader) {
-		System.out.println("webhook");
-		System.out.println(payload);
 		paymentService.acceptSuccessfulPayment(payload, signatureHeader);
-		System.out.println("after");
 		
 		return ResponseEntity.ok("");
 	}
@@ -47,6 +44,12 @@ public class PaymentController {
 	@ExceptionHandler(PaymentException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionResponse paymentExceptionHandler(PaymentException e) {
+		return new ExceptionResponse(HttpStatus.BAD_REQUEST, List.of(e.getMessage()));
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionResponse illegalArgumentHandler(IllegalArgumentException e) {
 		return new ExceptionResponse(HttpStatus.BAD_REQUEST, List.of(e.getMessage()));
 	}
 }

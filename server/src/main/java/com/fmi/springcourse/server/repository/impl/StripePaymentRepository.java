@@ -31,8 +31,9 @@ public class StripePaymentRepository implements PaymentRepository {
 	@Value("${stripe.webhook.secret}")
 	private String webhookSecret;
 	
-	//	@Value("${store.url}")
-	private String storeUrl = "https://doroty.netlify.app/";
+	//Note: Stripe allows only https urls.
+	@Value("${store.url}")
+	private String storeUrl;
 	
 	private final String successUrl = storeUrl + "success";
 	private final String cancelUrl = storeUrl + "cancel";
@@ -63,6 +64,7 @@ public class StripePaymentRepository implements PaymentRepository {
 			SessionCreateParams.builder()
 				.setMode(SessionCreateParams.Mode.PAYMENT)
 				.setShippingAddressCollection(ALLOWED_COUNTRIES)
+				.setBillingAddressCollection(SessionCreateParams.BillingAddressCollection.REQUIRED)
 				.setSuccessUrl(successUrl)
 				.setCancelUrl(cancelUrl);
 		

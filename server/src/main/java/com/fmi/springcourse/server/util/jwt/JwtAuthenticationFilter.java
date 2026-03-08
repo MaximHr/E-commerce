@@ -28,18 +28,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 	}
 	
 	@Override
-	protected boolean shouldNotFilter(HttpServletRequest request) {
-		System.out.println("not filter");
-		String path = request.getRequestURI();
-		return path.equals("/payments/webhook");
-	}
-	
-	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
 	                                FilterChain filterChain) throws ServletException, IOException {
 		String header = request.getHeader("Authorization");
-		System.out.println("calling me");
-		System.out.println(request);
 		
 		try {
 			if (header != null && header.startsWith(BEARER)) {

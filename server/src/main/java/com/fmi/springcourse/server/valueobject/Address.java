@@ -14,8 +14,5 @@ public record Address(String country, String city, String address, String postal
 		if (address == null) {
 			throw new IllegalArgumentException("Provided address can not be null.");
 		}
-		if (postalCode == null) {
-			throw new IllegalArgumentException("Provided postalCode can not be null.");
-		}
 	}
 }
