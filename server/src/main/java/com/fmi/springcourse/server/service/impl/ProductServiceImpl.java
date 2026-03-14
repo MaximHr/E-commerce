@@ -107,6 +107,18 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
+	public List<ProductListDto> search(String query) {
+		if (query == null || query.isBlank()) {
+			return List.of();
+		}
+		
+		return repository.search(query)
+			.stream()
+			.map(ProductListDto::new)
+			.toList();
+	}
+	
+	@Override
 	@Transactional
 	public ProductDetails updateProduct(Long id, ProductRequest req) {
 		var newProduct = new Product(

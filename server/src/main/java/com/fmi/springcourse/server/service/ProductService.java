@@ -23,4 +23,6 @@ public interface ProductService {
 	PageResponse<ProductListDto> listProducts(Pageable pageable);
 	
 	List<ProductListDto> getTopNMostSold(int n);
+	
+	List<ProductListDto> search(String query);
 }

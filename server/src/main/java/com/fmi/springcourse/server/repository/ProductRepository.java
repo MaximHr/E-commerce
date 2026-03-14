@@ -43,4 +43,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		    ORDER BY SUM(oi.quantity) DESC
 		""")
 	List<Product> findTopSellingProducts(Pageable pageable);
+	
+	@Query(value = """
+		SELECT *
+		FROM product
+		WHERE similarity(title, :query) > 0.3
+		   OR similarity(description, :query) > 0.3
+		ORDER BY GREATEST(similarity(title, :query), similarity(description, :query)) DESC
+		""", nativeQuery = true)
+	@Transactional(readOnly = true)
+	List<Product> search(@Param("query") String query);
 }

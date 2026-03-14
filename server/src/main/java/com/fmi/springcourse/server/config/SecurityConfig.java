@@ -72,7 +72,7 @@ public class SecurityConfig {
 			.requestMatchers(HttpMethod.DELETE, "/collections/**").authenticated()
 			.requestMatchers(HttpMethod.GET, "/products/withCollectionIds/*").authenticated()
 			.requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-			.requestMatchers(HttpMethod.POST, "/products/upload").authenticated()
+			.requestMatchers(HttpMethod.POST, "/products/").authenticated()
 			.requestMatchers(HttpMethod.DELETE, "/products/*").authenticated()
 			.requestMatchers(HttpMethod.PUT, "/products/*").authenticated()
 			.requestMatchers(HttpMethod.GET, "/members/me").authenticated()

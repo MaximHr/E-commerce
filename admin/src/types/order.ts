@@ -15,7 +15,7 @@ export interface Address {
   country: string;
   city: string;
   address: string;
-  postalCode: string;
+  postalCode: string | null;
 }
 
 export interface Order {

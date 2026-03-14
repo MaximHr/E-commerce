@@ -10,7 +10,7 @@ export async function addProduct(
   product: ProductTRequestWithCollections,
 ): Promise<ProductTResponse> {
   const res = await authFetch(
-    `${import.meta.env.VITE_SERVER_URL}/products/upload`,
+    `${import.meta.env.VITE_SERVER_URL}/products/`,
     {
       method: "POST",
       body: JSON.stringify(product),
@@ -26,7 +26,7 @@ export async function addProduct(
 
 export async function listProducts(pageNumber: number, size: number) {
   const res = await authFetch(
-    `${import.meta.env.VITE_SERVER_URL}/products/list?page=${pageNumber}&size=${size}&sort=createdAt,desc`,
+    `${import.meta.env.VITE_SERVER_URL}/products/?page=${pageNumber}&size=${size}&sort=createdAt,desc`,
     {
       method: "GET",
     },
