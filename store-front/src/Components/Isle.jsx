@@ -2,7 +2,14 @@ import Product from "./Product";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa6";
 
-const Isle = ({ title, items, advancedOptions, setSortBy, setOrder, totalElements }) => {
+const Isle = ({
+  title,
+  items,
+  advancedOptions,
+  setSortBy,
+  setOrder,
+  totalElements,
+}) => {
   const sort = (e) => {
     if (e.target.value == "low-to-high") {
       setSortBy("price");
@@ -20,7 +27,9 @@ const Isle = ({ title, items, advancedOptions, setSortBy, setOrder, totalElement
     <div>
       <div className="isle container">
         <div className="isle-title">
-          <h2>{title} {totalElements ? `(${totalElements})` : ""}</h2>
+          <h2>
+            {title} {totalElements ? `(${totalElements})` : ""}
+          </h2>
           {advancedOptions ? (
             <div className="sort-selector">
               <select

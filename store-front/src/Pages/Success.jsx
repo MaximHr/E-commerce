@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 const Success = () => {
   useEffect(() => {
-		localStorage.removeItem("cart-products");
-	}, []);
+    localStorage.removeItem("cart-products");
+  }, []);
   return (
     <div className="about container success" id="about">
       <h1 className="about-title">Thank you for your purchase !</h1>

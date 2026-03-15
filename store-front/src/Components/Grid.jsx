@@ -18,9 +18,7 @@ const Grid = () => {
             <img
               className="secondary-banner-img"
               src={
-                import.meta.env.VITE_R2_BUCKET_URL +
-                "/image/" +
-                banner.imageUrl
+                import.meta.env.VITE_R2_BUCKET_URL + "/image/" + banner.imageUrl
               }
               alt={banner.title}
             />

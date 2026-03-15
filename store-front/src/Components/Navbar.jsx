@@ -21,6 +21,7 @@ const Navbar = ({ setCartToggle, cartProducts, collections, storeName }) => {
   const [mobileSearchOpened, setMobileSearchOpened] = useState(false);
 
   const searchRef = useRef(null);
+  const inputRef = useRef(null);
 
   let location = useLocation();
 
@@ -55,9 +56,10 @@ const Navbar = ({ setCartToggle, cartProducts, collections, storeName }) => {
     setSidebar(false);
   }, [location]);
 
-  const toggleSearch = () => {
+  const openSearch = () => {
     if (window.innerWidth <= SEARCH_BREAKING_POINT) {
-      setMobileSearchOpened((prev) => !prev);
+        setMobileSearchOpened(true);
+        setTimeout(() => inputRef.current?.focus(), 0);
     }
   };
 
@@ -176,7 +178,7 @@ const Navbar = ({ setCartToggle, cartProducts, collections, storeName }) => {
       <div className="flex-end">
         <div
           className="magnifying-glass mobile-search-btn"
-          onClick={toggleSearch}
+          onClick={openSearch}
         >
           <i className="fa-solid fa-magnifying-glass"></i>
         </div>
@@ -185,7 +187,10 @@ const Navbar = ({ setCartToggle, cartProducts, collections, storeName }) => {
           style={mobileSearchOpened ? { display: "flex" } : {}}
           ref={searchRef}
         >
-          <div onClick={() => setMobileSearchOpened(false)} className="close-mobile close-cart">
+          <div
+            onClick={() => setMobileSearchOpened(false)}
+            className="close-mobile close-cart"
+          >
             <IoClose size={27} />
           </div>
           <div className="searchbar">
@@ -193,6 +198,7 @@ const Navbar = ({ setCartToggle, cartProducts, collections, storeName }) => {
               <i className="fa-solid fa-magnifying-glass"></i>
             </div>
             <input
+              ref={inputRef}
               value={searchValue}
               onChange={searchHandler}
               onKeyDown={handleKeyDown}

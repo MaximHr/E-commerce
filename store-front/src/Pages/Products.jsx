@@ -9,7 +9,7 @@ const Products = () => {
   const [products, setProducts] = useState([{}, {}, {}, {}, {}, {}, {}, {}]);
   const [sortBy, setSortBy] = useState("createdAt");
   const [order, setOrder] = useState("desc");
-	const [totalElements, setTotalElements] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
 
   const loadProducts = useCallback(
     async (pageNumber, size) => {
@@ -21,8 +21,7 @@ const Products = () => {
           order,
         );
         setProducts(pageableProducts.content);
-				setTotalElements(pageableProducts.totalElements);
-				
+        setTotalElements(pageableProducts.totalElements);
       } catch (err) {
         toast.error(err.message);
       }
@@ -42,7 +41,7 @@ const Products = () => {
         items={products}
         setSortBy={setSortBy}
         setOrder={setOrder}
-				totalElements={totalElements}
+        totalElements={totalElements}
       />
     </div>
   );

@@ -13,8 +13,8 @@ const Collection = () => {
       const res = await fetchCollectionsBySlug(slug);
       setData(res);
     } catch (err) {
-			toast.error(err.message);
-		}
+      toast.error(err.message);
+    }
   };
 
   useEffect(() => {

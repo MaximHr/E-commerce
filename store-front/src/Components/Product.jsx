@@ -17,7 +17,9 @@ const Product = ({ item }) => {
       onClick={(e) => navigate(e)}
       className="product relative overflow-hidden"
     >
-      {item?.discount > 0 && <div className="discount-ribbon">-{item.discount}%</div>}
+      {item?.discount > 0 && (
+        <div className="discount-ribbon">-{item.discount}%</div>
+      )}
 
       <div className="img-container">
         <img
