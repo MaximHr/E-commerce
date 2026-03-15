@@ -1,6 +1,7 @@
 import { handleError } from "@/api/errorHandler";
 import { getAllOrders } from "@/api/orders";
 import OrderCard from "@/components/OrderCard";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import { type Order } from "@/types/order";
 import { useEffect, useState } from "react";
 
@@ -8,12 +9,12 @@ const ORDER_PAGE_SIZE = 100;
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>();
-	const [totalElements, setTotalElements] = useState<number>(1);
+  const [totalElements, setTotalElements] = useState<number>(1);
 
   const loadOrders = async () => {
     try {
       const res = await getAllOrders(0, ORDER_PAGE_SIZE);
-			setOrders(res.content);
+      setOrders(res.content);
       setTotalElements(res.totalElements);
     } catch (err) {
       if (err instanceof Error) {
@@ -28,26 +29,29 @@ const Orders = () => {
     loadOrders();
   }, []);
 
- return (
-  <div className="space-y-6">
-    <div>
-      <h1 className="text-2xl special-font mb-1">Orders</h1>
-      <p className="text-sm text-muted-foreground">
-        Total orders: {totalElements ?? 0}
-      </p>
-    </div>
-
-    {!orders || orders.length === 0 ? (
-      <p className="text-sm text-muted-foreground">No orders found.</p>
-    ) : (
-      <div className="space-y-4">
-        {orders.map((order) => (
-          <OrderCard key={order.id} order={order} />
-        ))}
+  return (
+    <div className="space-y-6">
+      <div>
+        <div className="flex gap-2">
+          <SidebarTrigger className="md:hidden " />
+          <h1 className="text-xl md:text-2xl special-font mb-1">Orders</h1>
+        </div>
+        <p className="text-sm text-muted-foreground">
+          Total orders: {totalElements ?? 0}
+        </p>
       </div>
-    )}
-  </div>
-);
+
+      {!orders || orders.length === 0 ? (
+        <p className="text-sm text-muted-foreground">No orders found.</p>
+      ) : (
+        <div className="space-y-4">
+          {orders.map((order) => (
+            <OrderCard key={order.id} order={order} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default Orders;

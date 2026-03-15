@@ -2,6 +2,7 @@ import { handleError } from "@/api/errorHandler";
 import { listProducts } from "@/api/products";
 import ProductsTable from "@/components/tables/ProductsTable";
 import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 import type { ProductTListResponse } from "@/types/product";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -46,9 +47,12 @@ const Products = () => {
   return (
     <>
       <div className="flex items-center gap-3 justify-between mb-7">
-        <h1 className="text-2xl special-font">
-          Products {`(${totalElements})`}
-        </h1>
+        <div className="flex gap-2">
+          <SidebarTrigger className="md:hidden" />
+          <h1 className="text-xl md:text-2xl special-font">
+            Products {`(${totalElements})`}
+          </h1>
+        </div>
         <Link to="/admin/add-product">
           <Button>Add new product</Button>
         </Link>

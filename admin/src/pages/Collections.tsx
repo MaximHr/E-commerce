@@ -5,14 +5,15 @@ import { useEffect, useState } from "react";
 import { handleError } from "@/api/errorHandler";
 import { listCollectionsWithCount } from "@/api/collections";
 import { ToastContainer } from "react-toastify";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Products = () => {
   const [collections, setCollections] = useState<CollectionWithCountT[]>([]);
 
   const fetchCollections = async () => {
     try {
-			const data = await listCollectionsWithCount();
-			setCollections(data);
+      const data = await listCollectionsWithCount();
+      setCollections(data);
     } catch (err) {
       if (err instanceof Error) {
         handleError(err.message);
@@ -23,21 +24,24 @@ const Products = () => {
   };
 
   useEffect(() => {
-		fetchCollections();
-	}, []);
+    fetchCollections();
+  }, []);
 
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-3 justify-between mb-7">
-        <h1 className="text-2xl special-font">
-          Collections {collections.length > 1 && `(${collections.length})`}
-        </h1>
+        <div className="flex gap-2">
+          <SidebarTrigger className="md:hidden" />
+          <h1 className="text-xl md:text-2xl special-font">
+            Collections {collections.length > 1 && `(${collections.length})`}
+          </h1>
+        </div>
         <CollectionDialog
           collection={undefined}
           setCollections={setCollections}
         />
       </div>
-			<ToastContainer />
+      <ToastContainer />
       <CollectionsTable
         collections={collections}
         setCollections={setCollections}

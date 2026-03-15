@@ -18,12 +18,12 @@ const OrderCard = ({ order }: OrderCardProps) => {
           </div>
 
           <div className="text-right">
-            <p className="text-sm font-medium">
+            {/* <p className="text-sm font-medium">
               Status:{" "}
               <span className="font-semibold">
                 {order.status.replaceAll("_", " ")}
               </span>
-            </p>
+            </p> */}
             <p className="text-lg font-bold">
               ${(order.amountTotal / 100).toFixed(2)}
             </p>

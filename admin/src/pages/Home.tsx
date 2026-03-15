@@ -4,7 +4,8 @@ import type { UserT } from "@/types/user";
 import { useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 type OutletContextType = {
   user: UserT;
@@ -42,24 +43,34 @@ const Home = () => {
 
   return (
     <div className="flex flex-col">
-      <h1 className="text-2xl special-font mb-7">Welcome, {user?.email}</h1>
+      <div className="flex gap-2">
+        <SidebarTrigger className="md:hidden" />
+        <h1 className="text-xl md:text-2xl special-font mb-7">
+          Welcome, {user?.email}
+        </h1>
+      </div>
       <div className="card-holder flex items-center gap-12">
         <div className="stats-card">
-          <h5 className="stats-title">
-						{totalRevenue} 💸
-          </h5>
-					<p className="stats-desc">Good Job! {import.meta.env.VITE_COMPANY_NAME} has made exaclty {totalRevenue}€ in sales.</p>
+          <h5 className="stats-title">{totalRevenue} 💸</h5>
+          <p className="stats-desc">
+            Good Job! {import.meta.env.VITE_COMPANY_NAME} has made exaclty{" "}
+            {totalRevenue}€ in sales.
+          </p>
           <Link to="/admin/orders">
-            <Button size="lg" variant="outline">View orders</Button>
+            <Button size="lg" variant="outline">
+              View orders
+            </Button>
           </Link>
         </div>
         <div className="stats-card">
-          <h5 className="stats-title">
-						{totalItemsSold} 🛒
-          </h5>
-					<p className="stats-desc">{totalItemsSold} items sold - and this is just the beginning.</p>
+          <h5 className="stats-title">{totalItemsSold} 🛒</h5>
+          <p className="stats-desc">
+            {totalItemsSold} items sold - and this is just the beginning.
+          </p>
           <Link to="/admin/products">
-            <Button size="lg" variant="outline">View products</Button>
+            <Button size="lg" variant="outline">
+              View products
+            </Button>
           </Link>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { useOutletContext } from "react-router";
 import type { AdminContext } from "@/types/context";
 import MembersTable from "@/components/tables/MembersTable";
 import { ToastContainer } from "react-toastify";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 const Members = () => {
   const [members, setMembers] = useState<UserT[]>([]);
@@ -31,12 +32,15 @@ const Members = () => {
 
   return (
     <>
-			<ToastContainer />
+      <ToastContainer />
       <div className="flex items-center gap-3 justify-between mb-7">
-        <h1 className="text-2xl special-font">
-          Members
-          <span>{members.length > 0 ? ` (${members.length})` : ``}</span>
-        </h1>
+        <div className="flex gap-2">
+          <SidebarTrigger className="md:hidden " />
+          <h1 className="text-xl md:text-2xl special-font">
+            Members
+            <span>{members.length > 0 ? ` (${members.length})` : ``}</span>
+          </h1>
+        </div>
         {user && user.role == "Owner" && (
           <AddMemberDialog setMembers={setMembers} />
         )}

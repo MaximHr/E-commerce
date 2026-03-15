@@ -1,4 +1,5 @@
 import { Card, CardTitle } from '@/components/ui/card';
+import me from "../assets/me.jpg";
 
 const AdminInfo = () => {
   return (
@@ -11,11 +12,10 @@ const AdminInfo = () => {
           <span className="font-bold">admin123</span> as a password.
           <br /> Feel free to test anything.
         </CardTitle>
-        <div className="flex items-center gap-3">
+        <div className="flex items-start gap-3">
           <img
-            className="rounded-full w-16 h-16 object-cover px-0"
-            loading="lazy"
-            src="placeholder.svg"
+            className="rounded-[5px] w-16 h-16 object-cover px-0"
+            src={me}
             alt="Me"
           />
           <div className="flex flex-col">

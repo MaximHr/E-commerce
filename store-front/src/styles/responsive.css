@@ -292,6 +292,27 @@
 }
 
 @media only screen and (max-width: 500px) {
+  .cart-bottom {
+    flex-direction: column-reverse;
+    text-align: center;
+    gap: 1.25rem;
+    padding: 1.75rem 0;
+  }
+	.cart-total {
+		width: 40px;
+	}
+	.cart-bottom button {
+		font-size: 1rem;
+	}
+	.cart-title {
+		font-size: 1.35rem;
+	}
+
+  .cart-bottom div {
+		justify-content: space-between;
+    gap: 0;
+  }
+
   .search-results-list,
   .searchbar {
     max-width: 250px;
@@ -300,10 +321,10 @@
   .searchbar-container {
     align-items: flex-start;
   }
-	.search-results-list {
-		left: 1.5rem;
-		transform: translateX(0);
-	}
+  .search-results-list {
+    left: 1.5rem;
+    transform: translateX(0);
+  }
 
   .alert p,
   .alert a {
@@ -415,12 +436,5 @@
 
   .details-img {
     padding: 3.5rem;
-  }
-
-  .cart-bottom {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.25rem;
-    padding: 1.75rem 0;
   }
 }

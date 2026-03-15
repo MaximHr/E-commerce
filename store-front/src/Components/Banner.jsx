@@ -10,11 +10,11 @@ const slides = [
     img: banner1,
   },
   {
-    link: "564b6676-5730-4e02-8f02-05398efd2f75",
+    link: "a44b0301-96f0-4fd8-9d28-63dc486bc16d",
     img: banner2,
   },
   {
-    link: "asd",
+    link: "invalid-link",
     img: banner3,
     objectPosition: "center 100%",
   },
