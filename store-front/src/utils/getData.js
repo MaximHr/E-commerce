@@ -5,7 +5,7 @@ export const fetchProducts = async (pageNumber, size, sortBy, order) => {
     const response = await fetch(
       `${
         import.meta.env.VITE_SERVER_URL
-      }/products/list?page=${pageNumber}&size=${size}&sort=${sortBy},${order}`,
+      }/products/?page=${pageNumber}&size=${size}&sort=${sortBy},${order}`,
       {
         method: "GET",
         headers: {
@@ -24,6 +24,32 @@ export const fetchProducts = async (pageNumber, size, sortBy, order) => {
     throw new Error(
       err.message ||
         "Unable to retrieve products. Please refresh and try again.",
+    );
+  }
+};
+
+export const getSearchResult = async (query) => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SERVER_URL}/products/search?q=${query}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+
+    if (response.status === 200) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error(response.error);
+    }
+  } catch (err) {
+    throw new Error(
+      err.message ||
+        "Unable to search through products. Please refresh and try again.",
     );
   }
 };

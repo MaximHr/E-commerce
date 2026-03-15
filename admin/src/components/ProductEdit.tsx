@@ -69,7 +69,6 @@ export const ProductEdit = ({
     if (discount === "") {
       setDiscount(0);
     }
-
     if (page == MAX_PAGES && value == 1) {
       handleProductSubmission();
     } else {

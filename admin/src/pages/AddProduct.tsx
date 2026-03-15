@@ -13,22 +13,27 @@ const AddProduct = () => {
   const [quantity, setQuantity] = useState<number | "">("");
   const [discount, setDiscount] = useState<number | "">("");
   const [images, setImages] = useState<string[]>([]);
-	const [titleImage, setTitleImage] = useState<string>("");
+  const [titleImage, setTitleImage] = useState<string>("");
   const [chosen, setChosen] = useState<number[]>([]);
 
   const handleProductSubmission = async () => {
-    if (price === "" || quantity === "" || discount === "") return;
-
     try {
+      if (price === "") {
+        throw new Error("Please add a valid price");
+      }
+      if (quantity === "") {
+        throw new Error("Please add a valid quantity");
+      }
+
       const product: ProductTRequestWithCollections = {
         title: name,
         description,
         price,
         quantity,
-        discount,
+				discount: (discount === "" ? 0 : discount),
         images,
-				collectionsIds: chosen,
-				titleImage
+        collectionsIds: chosen,
+        titleImage,
       };
       await addProduct(product);
       navigate("/admin/products");
@@ -50,8 +55,8 @@ const AddProduct = () => {
         setPrice={setPrice}
         images={images}
         setImages={setImages}
-				setTitleImage={setTitleImage}
-				titleImage={titleImage}
+        setTitleImage={setTitleImage}
+        titleImage={titleImage}
         description={description}
         setDescription={setDescription}
         discount={discount}
@@ -60,8 +65,8 @@ const AddProduct = () => {
         setQuantity={setQuantity}
         handleProductSubmission={handleProductSubmission}
         shouldAdd={true}
-				chosen={chosen}
-				setChosen={setChosen}
+        chosen={chosen}
+        setChosen={setChosen}
       />
     </div>
   );

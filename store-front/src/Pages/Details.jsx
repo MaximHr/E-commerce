@@ -18,7 +18,6 @@ const Details = () => {
   const loadProduct = async (slug) => {
     try {
       const data = await fetchProductBySlug(slug);
-			console.log(data);
       setProduct({...data, images: [data.titleImage, ...data.images]});
     } catch (err) {
       setProductNotFound(true);
