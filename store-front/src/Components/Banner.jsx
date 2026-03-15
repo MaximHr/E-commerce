@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 
 const slides = [
   {
-    link: "9c59e267-54c1-492b-92ff-f64d51384c4f",
+    link: "a44b0301-96f0-4fd8-9d28-63dc486bc16d",
     img: banner1,
   },
   {
-    link: "a44b0301-96f0-4fd8-9d28-63dc486bc16d",
+    link: "ed40a70a-09d9-40a5-ada8-d13256d018a3",
     img: banner2,
   },
   {

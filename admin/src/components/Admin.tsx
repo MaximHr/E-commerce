@@ -1,5 +1,5 @@
 import { AppSidebar } from "./sidebar/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import type { UserT } from "@/types/user";
